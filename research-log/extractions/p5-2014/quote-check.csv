@@ -1,0 +1,44 @@
+model,project,quote_found
+claude-sonnet,Mu2e,yes
+claude-sonnet,Muon g-2,yes
+claude-sonnet,HL-LHC,yes
+claude-sonnet,LHC Phase 1 upgrade,yes
+claude-sonnet,LBNF,yes
+claude-sonnet,PIP-II,yes
+claude-sonnet,ILC,yes
+claude-sonnet,NuSTORM,yes
+claude-sonnet,RADAR,yes
+claude-sonnet,LSST,yes
+claude-sonnet,DM G2,yes
+claude-sonnet,DM G3,yes
+claude-sonnet,CMB-S4,yes
+claude-sonnet,PINGU,yes
+claude-sonnet,ORKA,yes
+claude-sonnet,CHIPS,yes
+claude-sonnet,LAr1,yes
+claude-sonnet,DESI,yes
+claude-sonnet,CTA,yes
+claude-sonnet,Water Cherenkov Detector,yes
+claude-sonnet,Project-X,yes
+claude-sonnet,LBNE,yes
+claude-sonnet,MICE,yes
+claude-haiku,Mu2e,yes
+claude-haiku,Muon g-2,yes
+claude-haiku,HL-LHC,yes
+claude-haiku,LBNF,yes
+claude-haiku,PIP-II,yes
+claude-haiku,ILC,yes
+claude-haiku,LSST,NO
+claude-haiku,DESI,yes
+claude-haiku,DM G2,yes
+claude-haiku,DM G3,yes
+claude-haiku,CMB-S4,yes
+claude-haiku,CTA,yes
+claude-haiku,PINGU,yes
+claude-haiku,Short Baseline Neutrino Portfolio,yes
+claude-haiku,NuSTORM,yes
+claude-haiku,RADAR,NO
+claude-haiku,CHIPS,yes
+claude-haiku,ORKA,yes
+claude-haiku,MAP,yes
+claude-haiku,LAr1,yes

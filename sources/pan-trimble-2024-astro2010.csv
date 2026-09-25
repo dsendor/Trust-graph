@@ -1,0 +1,16 @@
+size,item_as_written,status_as_written,pt_category,note
+LARGE,WFIRST (Wide Field IR Space Telescope),Going forward as Nancy Grace Roman Space Telescope (2027?),,
+LARGE,Augmentation of Explorer Program,"Imaging X-ray Polarimetry Explorer (SMEX-14) 2021, others planned",,
+LARGE,LISA,As above,,"Table 2.2: LISA Pathfinder in operation 2015-17, mostly ESA (4)"
+LARGE,IXO,As above,,"Table 2.2 (as Con-X/IXO): now ESA's Athena (launch 2035?) (4)"
+LARGE,Vera C. Rubin Observatory,As above,,"Table 2.2 (as LSST): In progress as Vera C. Rubin Observatory, first light 2024 (3)"
+LARGE,Mid-Scale Innovations Program in Astronomical Sciences,"Many funded, often technical development for bigger things, like ngVLA, BICEP, and IceCube-Gen2",,
+LARGE,GSMT,As above,,"Table 2.2: HET (1998), SALT (2003), GMT, E-ELT in progress, TMT construction halted (2 and 4)"
+LARGE,ACTA (Atacama Cherenkov Telescope Array),"CTA Observatory, Paranal & Canary Islands (11 countries + ESO not US) European 2022 highest ground-based priority",,
+MEDIUM,CCAT (Cornell-Caltech Atacama Telescope),"Became Cerro Chajnantor Atacama Telescope 25m, Descoped to 6m Fred Young Submm Ohs. US-Germany-Canada for 2024",,
+MEDIUM,Exoplanet Program Science,"Roman chronograph, star-shade etc. in progress",,
+MEDIUM,Inflation Probe,CMB items in progress,,
+SMALL,TSIP,As above,,"Table 2.2 (Telescope System Instrumentation Program): On-going, including instrument for Keck (1)"
+SMALL,Gemini International Leadership,6-nation collaboration still operated from NOIRLab,,
+SMALL,SPICA (Space IR Tel. for Cosmology and Astrophysics),JAXA and ESA dropped in 2020,,
+SMALL,TCAN (Theoretical and Computational Astrophysics Networks),"Competitions in 2011, 2017, 2020, 2022, with rule changes",,
