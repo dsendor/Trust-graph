@@ -7,3 +7,4 @@ __pycache__/
 db/*.sqlite
 db/*.sqlite-wal
 db/*.sqlite-shm
+sources/*.pdf
