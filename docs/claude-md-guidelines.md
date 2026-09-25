@@ -1,9 +1,5 @@
 # How to write CLAUDE.md
 
-**TL;DR: keep CLAUDE.md to one screen. It holds rules that apply to every task and a
-pointer table. Everything else goes in its own document, with one line in CLAUDE.md
-pointing there. Never edit it without David's approval.**
-
 **CLAUDE.md is loaded into every prompt.** Everything in it costs context on every task,
 whether or not that task needs it. So the test for including something is not *is this
 true* or *is this useful*. It is:
@@ -15,7 +11,7 @@ document about X, and CLAUDE.md gets one line pointing there.
 
 ## What earns a place
 
-- **Rules that apply to every prompt.** Lead with the answer. No em dashes. Never merge to main without asking.
+- **Rules that apply to every prompt.** TL;DR at the end of chat replies. No em dashes. Never merge to main without asking.
 - **Rules whose violation is expensive and silent.** Publishing named-person scores,
   presenting a schema demo as evidence. An agent will not discover these by reading the
   repo, and by the time the mistake shows up it is in a commit or an email.

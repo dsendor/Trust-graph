@@ -1,8 +1,8 @@
 # Notion access
 
-**TL;DR: Notion is reached through its hosted MCP server, configured in `.mcp.json`. No
-key lives in the repo. The two docs in `docs/` were imported from Notion on 2026-09-25;
-the repo copies are the working versions from here on.**
+Notion is reached through its hosted MCP server, configured in `.mcp.json`. No key lives
+in the repo. The two docs in `docs/` were imported from Notion on 2026-09-25; the repo
+copies are the working versions from here on.
 
 ## Setup
 

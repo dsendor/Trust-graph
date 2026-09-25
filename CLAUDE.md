@@ -1,9 +1,10 @@
-# Promise ledger
+# Trust graph
 
-Scoring the ranked bets in Astro2010 and P5 2014 against what happened: was it built,
-what did it cost and when did it arrive, did it answer the science question it was sold
-on, and whose call was it. Long term, it is the first dataset for a **trust graph**:
-claims, people, and models with domain-scoped track records.
+Starts with the **promise ledger**, which scores the ranked bets in Astro2010 and P5 2014
+against what happened: was it built, what did it cost and when did it arrive, did it
+answer the science question it was sold on, and whose call was it. Long term, the ledger
+is the first dataset for the **trust graph**: claims, people, and models with
+domain-scoped track records.
 
 **Current call: build the ledger, scoped hard. The graph comes after.** Good enough is
 five bets scored on the science question with attribution, plus a one-page scorecard.
@@ -12,7 +13,7 @@ five bets scored on the science question with attribution, plus a one-page score
 
 1. **Never commit to `main`, merge to `main`, or edit this file without asking David.**
    Work on a branch, push it, and ask.
-2. **Lead with the answer.** Every document and reply opens with a TL;DR readable in one pass.
+2. **TL;DR at the end of every chat reply, never at the beginning.** Not in documents.
 3. **No em dashes**, anywhere.
 4. **Every judgment carries a source link, a rationale, and a confidence** (`confident` or
    `guess`). Above all "did it answer the science question."

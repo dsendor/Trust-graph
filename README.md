@@ -1,4 +1,6 @@
-# Promise ledger
+# Trust graph
+
+First build: the promise ledger.
 
 Every ranked bet in Astro2010 and P5 2014, logged as a promise with a cost, a date, and
 the people who made the call, then checked against what happened. The first dataset for
