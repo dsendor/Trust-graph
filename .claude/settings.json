@@ -1,3 +1,21 @@
 {
-  "enabledMcpjsonServers": ["notion"]
+  "enabledMcpjsonServers": ["notion"],
+  "permissions": {
+    "deny": [
+      "mcp__github__merge_pull_request"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__github__push_files|mcp__github__create_or_update_file|mcp__github__delete_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '(.tool_input.branch // \"\" | ascii_downcase) as $b | (.tool_input.repo // \"\" | ascii_downcase) as $r | if $b == \"main\" and $r == \"trust-graph\" then {hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"deny\",permissionDecisionReason:\"Direct writes to main are blocked in this repo. Open a PR against a feature branch instead.\"}} else {} end'"
+          }
+        ]
+      }
+    ]
+  }
 }
