@@ -12,8 +12,8 @@ five bets scored on the science question with attribution, plus a one-page score
 ## Always, in every session
 
 1. **Never commit to `main`, merge to `main`, or edit this file without asking David.**
-   Work on a branch, push it, and ask.
-2. **TL;DR at the end of every chat reply, never at the beginning.** Not in documents.
+   Work on a branch, push it, and ask. Commit frequently.
+2. **TL;DR at the end of every chat reply.** Not in documents.
 3. **No em dashes**, anywhere.
 4. **Every judgment carries a source link, a rationale, and a confidence** (`confident` or
    `guess`). Above all "did it answer the science question."
@@ -25,9 +25,6 @@ five bets scored on the science question with attribution, plus a one-page score
    scorecard, emailing Paul or any physicist. Everything else, decide and proceed.
 
 ## Failure modes
-
-1. **Stalling on the science question and shipping nothing.** Scope to named cases.
-2. **Shipping a schema demo and presenting it as evidence.** Twenty bets cannot support person-level trust.
 
 ## Commands
 
