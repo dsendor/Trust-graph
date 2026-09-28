@@ -9,15 +9,28 @@ status sourced. Cost variance and schedule are Weekend 2.
 
 ## Status
 
+**Done.** 33 bets in `data/bets.csv` (21 P5 2014, 12 Astro2010), each with a sourced
+`built` outcome in `data/outcomes.csv`.
+
 | Step | State |
 |---|---|
-| Schema, extraction prompt, compare script | Done |
-| Sources (P5 2014, Pan and Trimble preprint) | Done, in `sources/`. See `sources/README.md` for what Pan and Trimble do and do not cover |
-| Two-model extraction of P5 2014 | Done, v2 prompt. Sonnet 23 bets (12 guess), Haiku 20 (0 guess). v1 kept in `research-log/extractions/p5-2014/v1/` |
-| Adjudication | Done. Opus settled 93 contested cells: `research-log/hand-check/p5-2014-adjudicated.csv` |
-| Merge into `data/` | Done. 20 P5 2014 bets in `data/bets.csv`, 20 `built` outcomes in `data/outcomes.csv` (14 confident, 6 guess) |
-| Model scores | Done. `research-log/model-trust/p5-2014-extraction-scores.csv`. Sonnet 80% on Weekend 1 fields, Haiku 64% |
-| Seed Astro2010 from Pan and Trimble (step 2) | Not started |
+| Sources | P5 2014 report, Pan and Trimble preprint, Astro2010 Executive Summary and Chapter 7 (`sources/README.md`) |
+| Two-model extraction | Both reports, v2 prompt, Sonnet and Haiku |
+| Adjudication | Opus: 93 P5 cells, 43 Astro2010 cells. One override by David: SBN included |
+| Agency | P5 agencies the report does not name are filled from funding records (13 bets, `agency_basis` = `record`) |
+| Built status | Opus, sourced, 33 bets. `research-log/outcomes/` |
+| Model scores | `research-log/model-trust/`. Graded by Opus, not by a person |
+
+## Findings
+
+- **Astro2010 by Pan and Trimble's categories (our coding, 12 ranked items):** 5 in
+  operation by 2025 with federal money (1), 1 built later (3, Roman), 5 built later or
+  building with mostly other money (4), 1 never (5, SPICA). Their scorecard for the same
+  report counts 23 items including unranked small ones: 10 / 1.5 / 4 / 3.5 / 4.
+- **P5 2014 gives no project costs**, only size bands. Astro2010 gives appraised costs
+  in FY2010 dollars. Cost variance is Weekend 2.
+- **Extraction:** on P5 (messy table), Sonnet beat Haiku clearly; on Astro2010 (clean
+  ranked tables), both were near perfect. Haiku never marks its own uncertainty.
 
 ## Search tooling
 
@@ -45,7 +58,8 @@ schedule lookups across ~30 bets need logged searches and provable nulls. That n
 5. **Adjudicate conflicts with Opus.** Opus fills `verdict` (`a`, `b`, `both`, `neither`),
    `correct_value`, and `adjudication_note` into `p5-2014-adjudicated.csv`. This is the
    resolution event for the model trust data, labelled Opus-adjudicated.
-6. **Merge** with `python3 scripts/build_bets.py p5-2014 <adjudicated>.csv <a>.json <b>.json --map <map>.csv`. Add a `built` outcome per bet with a
+6. **Merge** with `python3 scripts/build_bets.py <report> <adjudicated>.csv <a>.json <b>.json --map <map>.csv`,
+   then `python3 scripts/fill_agency.py <agency-records>.csv` for agencies the report does not name. Add a `built` outcome per bet with a
    `source_url`.
 7. **Score the models.** `python3 scripts/compare_extractions.py --score research-log/hand-check/p5-2014.csv`
    gives accuracy per model per field: the first jagged profile.

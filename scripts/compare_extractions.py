@@ -36,6 +36,8 @@ def norm(v, field=None):
         return m.group(1) if m else v
     if field == "science_driver":  # a set: order does not matter
         return ";".join(sorted(t.strip() for t in v.split(";")))
+    if field == "agency":  # "NSF+DOE" and "DOE+NSF" are the same answer
+        return "+".join(sorted(t.strip() for t in v.split("+")))
     if field == "rank_or_scenario":
         return re.sub(r"\s+", "", v)
     return re.sub(r"[^a-z0-9$.,]+", " ", v).strip()

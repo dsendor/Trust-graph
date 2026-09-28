@@ -11,10 +11,12 @@ anything and loads into SQLite or Notion later without a decision today.
 | `source_report` | `astro2010`, `p5-2014` |
 | `source_locator` | Page, section, or recommendation number in the report |
 | `project` | Name as the report writes it |
-| `agency` | US funders only: `DOE`, `NSF`, `NASA`, `DOE+NSF`, `not-stated`, ... |
-| `size_class` | The report's own tier. P5 2014: `large` (>$200M), `medium` ($50M to $200M), `small` (<$50M) |
-| `rank_or_scenario` | Astro2010: rank within its category. P5 2014: which of scenarios `A`, `B`, `C` include it, e.g. `A,B,C` or `B,C` |
-| `science_driver` | P5 2014 names five: `higgs`, `neutrino-mass`, `dark-matter`, `cosmic-acceleration`, `unknown` |
+| `agency` | US funders only, joined with `+` in the order `DOE`, `NASA`, `NSF` (e.g. `DOE+NSF`). From the report where it says; otherwise from funding records |
+| `agency_basis` | `report` (the report names it) or `record` (filled from funding records by `scripts/fill_agency.py`) |
+| `agency_source_url` | The funding record, when `agency_basis` is `record` |
+| `size_class` | The report's own tier. P5 2014: `large` (>$200M), `medium` ($50M to $200M), `small` (<$50M). Astro2010: the scale of its table |
+| `rank_or_scenario` | Astro2010: `<ground\|space>-<large\|medium>-<rank>` or `small-unranked`. P5 2014: Table 1 cells, `A:<cell>\|B:<cell>\|C:<cell>`, or `not-in-table-1:<recommended\|not-recommended>` |
+| `science_driver` | P5 2014: `higgs`, `neutrino-mass`, `dark-matter`, `cosmic-acceleration`, `unknown`. Astro2010: `cosmic-dawn`, `new-worlds`, `physics-of-the-universe`, `broad` |
 | `promise_quote` | Verbatim sentence(s) from the report stating what the bet is for |
 | `science_question` | The specific question it was sold on, in our words, traceable to `promise_quote` |
 | `cost_at_ranking` | The report's figure, or blank if the report gives none. Never inferred |

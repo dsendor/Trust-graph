@@ -1,16 +1,4 @@
-# Extraction prompt: bets from a prioritization report
-
-Give this prompt, unchanged, to each model. Same text, same source file, no other
-context. The variables are `{REPORT}`, `{SOURCE_FILE}`, and the report's section under
-"Report-specific values" below.
-
-**v2, 2026-09-25.** v1 left agency, driver, scenario, and size as free text, so the two
-models disagreed mostly on wording and the comparison measured formatting, not accuracy.
-v1 output is kept in `research-log/extractions/p5-2014/v1/`.
-
----
-
-You are extracting the ranked bets from `{REPORT}`. The full text is in `{SOURCE_FILE}`.
+You are extracting the ranked bets from the Astro2010 decadal survey, "New Worlds, New Horizons in Astronomy and Astrophysics" (National Research Council, 2010). The full text is in `/home/user/trust-graph/sources/astro2010.txt` (the Executive Summary and Chapter 7; `=== PAGE n ===` markers are the printed page numbers).
 Read all of it before writing anything.
 
 A **bet** is a specific, named project, facility, or experiment the report recommends
@@ -42,24 +30,7 @@ Rules:
 7. `confidence` is `confident` or `guess`. A run with no guesses is not a confident run.
 8. Output the JSON array only. No commentary.
 
-## Report-specific values
-
-### P5 2014
-
-- `agency`: `DOE`, `NSF`, `DOE+NSF`, or `not-stated`. The US funders only; partners go in `rationale`.
-- `size_class`: `large`, `medium`, `small`, or `not-stated`. Use the Table 1 section the
-  project sits under ("Additional Small Projects" is `small`). If it is not in Table 1,
-  use a size the text states, else `not-stated`.
-- `rank_or_scenario`: for Table 1 rows, `A:<cell>|B:<cell>|C:<cell>`, each cell as
-  written in Table 1 (`Y`, `N`, `Y, reduced`, `R&D only`, ...). For projects not in
-  Table 1: `not-in-table-1:recommended` or `not-in-table-1:not-recommended`.
-- `science_driver`: one or more of `higgs`, `neutrino-mass`, `dark-matter`,
-  `cosmic-acceleration`, `unknown`, joined with `;`, from the Table 1 driver columns
-  where the project has a row, else from the text.
-- `cost_basis`: `size-class-only` when the report gives only the Table 1 band, else
-  `stated` when `cost_at_ranking` has a number.
-
-### Astro2010 (New Worlds, New Horizons)
+Report-specific values (Astro2010). Where these conflict with the general definition of a bet above, these win:
 
 - Scope: every item in Tables ES.2 to ES.5 is a bet, programs included, because those
   tables are the ranked priorities. In Table ES.1 (small scale, unranked) only named

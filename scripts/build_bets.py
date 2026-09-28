@@ -6,7 +6,8 @@ For each bet: agreed cells take the shared value; disagreements take the adjudic
 verdict (a, b, both -> a, neither -> correct_value). A bet only one model found is kept
 if the adjudicator ruled for the model that found it; its fields then come from that
 model alone, and the rationale says so. Rows for <report> already in data/bets.csv are
-replaced; other reports' rows are kept.
+replaced; other reports' rows are kept. Run scripts/fill_agency.py afterwards to fill
+agencies the report does not state.
 
 Standard library only.
 """
@@ -17,7 +18,8 @@ from collections import defaultdict
 from pathlib import Path
 
 COLUMNS = [
-    "bet_id", "source_report", "source_locator", "project", "agency", "size_class",
+    "bet_id", "source_report", "source_locator", "project", "agency", "agency_basis",
+    "agency_source_url", "size_class",
     "rank_or_scenario", "science_driver", "promise_quote", "science_question",
     "cost_at_ranking", "cost_basis", "target_date", "field_arxiv", "confidence", "rationale",
 ]
@@ -64,7 +66,8 @@ def main(report, sheet_path, a_path, b_path, map_path):
                     sys.exit(f"{bet_id}.{field} has no verdict; adjudicate before merging")
         row["bet_id"] = bet_id
         row["source_report"] = report
-        rows.append({k: ("" if row.get(k) is None else row.get(k)) for k in COLUMNS})
+        row["agency_basis"] = "report" if row.get("agency") not in (None, "", "not-stated") else ""
+        rows.append({k: ("" if row.get(k) in (None, "null", "None") else row.get(k)) for k in COLUMNS})
 
     kept = [r for r in csv.DictReader(open(OUT)) if r["source_report"] != report] if OUT.exists() else []
     with open(OUT, "w", newline="") as fh:
