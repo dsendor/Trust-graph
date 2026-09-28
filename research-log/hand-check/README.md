@@ -1,10 +1,17 @@
-# Hand check: P5 2014
+# Adjudication: P5 2014
+
+**Claude Opus settles every conflict between the two extraction models** (David's call,
+2026-09-28). Opus reads the report text and the Table 1 page image
+(`sources/p5-2014-pdfpage27.png`) and writes `p5-2014-adjudicated.csv` with a verdict and
+a one-line `adjudication_note` per contested cell. David does not hand check rows; he may
+spot check. In the model trust data these resolutions are labelled Opus-adjudicated, not
+human-checked.
 
 `p5-2014.csv` lines up Claude Sonnet (`value_a`) and Claude Haiku (`value_b`) field by
 field, one row per bet and field, with the source text for that bet in `source_excerpt`.
 Rows are grouped by field, so you read down one column of Table 1 (report p. 17) at a time.
 
-## What to fill
+## Verdict codes
 
 For every row where `agree` is `no` or `check`, set `verdict`:
 
@@ -20,14 +27,7 @@ include or leave it out.
 
 Rows where `agree` is `yes` count as right for both unless you mark them `neither`.
 
-## Order
-
-1. **Weekend 1 fields, 34 cells:** `_row` (7), `size_class` (4), `rank_or_scenario` (4),
-   `agency` (7), `science_driver` (5), `target_date` (7). Table 1 answers most of them.
-2. **Weekend 3 fields, 50 cells:** `promise_quote`, `science_question`, `source_locator`.
-   Leave for later. Quotes are already checked mechanically, below.
-
-Then: `python3 scripts/compare_extractions.py --score research-log/hand-check/p5-2014.csv`
+Then: `python3 scripts/compare_extractions.py --score research-log/hand-check/p5-2014-adjudicated.csv`
 
 ## Already checked mechanically
 
@@ -42,4 +42,4 @@ Then: `python3 scripts/compare_extractions.py --score research-log/hand-check/p5
 The PDF text loses Table 1's cell layout. Four notes ("LBNF components delayed relative
 to Scenario B," "possibly small hardware contributions," "some reductions with redirection
 to PIP-II development," "Mu2e small reprofile needed") float free of their cells. That is
-why LBNF, PIP-II, and ILC scenario cells disagree. Check them against the PDF (link in `sources/README.md`), not the text.
+why LBNF, PIP-II, and ILC scenario cells disagree. The adjudicator reads them from the page image, not the text.

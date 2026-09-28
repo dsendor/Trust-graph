@@ -1,10 +1,10 @@
 # Weekend 1: extend Pan and Trimble to P5 2014
 
 **Goal.** Every P5 2014 bet in `data/bets.csv`, with whether it was built in
-`data/outcomes.csv`, extracted by two models and hand checked. Astro2010 rows seeded from
+`data/outcomes.csv`, extracted by two models, conflicts settled by Opus. Astro2010 rows seeded from
 Pan and Trimble alongside, so both reports sit in one table.
 
-**Good enough.** All P5 2014 large and medium projects, promise side hand checked, built
+**Good enough.** All P5 2014 large and medium projects, promise side adjudicated, built
 status sourced. Cost variance and schedule are Weekend 2.
 
 ## Status
@@ -14,8 +14,10 @@ status sourced. Cost variance and schedule are Weekend 2.
 | Schema, extraction prompt, compare script | Done |
 | Sources (P5 2014, Pan and Trimble preprint) | Done, in `sources/`. See `sources/README.md` for what Pan and Trimble do and do not cover |
 | Two-model extraction of P5 2014 | Done, v2 prompt. Sonnet 23 bets (12 guess), Haiku 20 (0 guess). v1 kept in `research-log/extractions/p5-2014/v1/` |
-| Hand check | **David.** `research-log/hand-check/README.md`: 34 cells for this weekend, 50 more for Weekend 3 |
-| Merge into `data/`, built status, score | After hand check |
+| Adjudication | Done. Opus settled 93 contested cells: `research-log/hand-check/p5-2014-adjudicated.csv` |
+| Merge into `data/` | Done. 20 P5 2014 bets in `data/bets.csv`, 20 `built` outcomes in `data/outcomes.csv` (14 confident, 6 guess) |
+| Model scores | Done. `research-log/model-trust/p5-2014-extraction-scores.csv`. Sonnet 80% on Weekend 1 fields, Haiku 64% |
+| Seed Astro2010 from Pan and Trimble (step 2) | Not started |
 
 ## Search tooling
 
@@ -40,9 +42,10 @@ schedule lookups across ~30 bets need logged searches and provable nulls. That n
    need API keys and wait for v1.
 4. **Line them up.**
    `python3 scripts/compare_extractions.py <a>.json <b>.json research-log/hand-check/p5-2014.csv`
-5. **Hand check every row** (David). Fill `verdict` (`a`, `b`, `both`, `neither`) and
-   `correct_value`. This is the resolution event for the model trust data.
-6. **Merge** checked rows into `data/bets.csv`. Add a `built` outcome per bet with a
+5. **Adjudicate conflicts with Opus.** Opus fills `verdict` (`a`, `b`, `both`, `neither`),
+   `correct_value`, and `adjudication_note` into `p5-2014-adjudicated.csv`. This is the
+   resolution event for the model trust data, labelled Opus-adjudicated.
+6. **Merge** with `python3 scripts/build_bets.py p5-2014 <adjudicated>.csv <a>.json <b>.json --map <map>.csv`. Add a `built` outcome per bet with a
    `source_url`.
 7. **Score the models.** `python3 scripts/compare_extractions.py --score research-log/hand-check/p5-2014.csv`
    gives accuracy per model per field: the first jagged profile.
