@@ -109,7 +109,8 @@ section.part > .wrap { display: flex; flex-direction: column; gap: 1.6rem; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.82rem; color: var(--ink-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
-svg.chart { width: 100%; height: auto; display: block; font-family: var(--body); }
+.plot { overflow-x: auto; }
+svg.chart { width: 100%; min-width: 760px; height: auto; display: block; font-family: var(--body); }
 svg.chart text { fill: var(--ink-2); font-size: 12px; }
 svg.chart .axis text { fill: var(--ink-3); font-size: 11px; font-family: var(--mono); }
 svg.chart .grid { stroke: var(--grid); stroke-width: 1; }
@@ -155,6 +156,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 #ledger td .what { color: var(--ink-2); font-size: 0.85rem; display: block; margin-top: 2px; }
 #ledger td .srcline { font-size: 0.8rem; display: block; margin-top: 3px; }
 #ledger td.name { min-width: 220px; }
+#ledger { min-width: 980px; }
 .callout { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--surface); border-radius: 0 6px 6px 0; color: var(--ink-2); font-size: 0.97rem; }
 .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px 24px; font-size: 0.93rem; }
 .glossary div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -321,16 +323,19 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
   }
   const num = s => { const m = String(s || '').match(/-?\d+(\.\d+)?/); return m ? parseFloat(m[0]) : null; };
   const yr = s => { const m = String(s || '').match(/(19|20)\d\d/); return m ? parseInt(m[0]) : null; };
-  const yrEnd = s => { const m = String(s || '').match(/(19|20)\d\d/g); return m ? parseInt(m[m.length - 1]) : null; };
+  const noParen = s => String(s || '').replace(/\([^)]*\)/g, '');
+  const yrEnd = s => { const m = noParen(s).match(/(19|20)\d\d/g); return m ? parseInt(m[m.length - 1]) : null; };
   for (const r of rows) {
     r.name = r.copy.plain_name || r.bet.project;
     if (r['cost-schedule']) {
       const kv = parseKV(r['cost-schedule'].value);
       r.kv = kv;
+      r.program = ('delivered' in kv) || ('recommended' in kv);
       r.ratio = num(kv.ratio);
       r.firstData = yr(kv.first_data);
-      r.firstDataProjected = /project|plan|expect|target/i.test(kv.first_data || '');
-      r.targetStart = yr(kv.target || r.bet.target_date);
+      r.firstDataProjected = /projected|planned|expected/i.test((kv.first_data || '').slice(0, 45));
+      if (/^\s*(none|never|n\/a)/i.test(kv.first_data || '')) r.firstData = null;
+      r.targetStart = yr(noParen(kv.target || r.bet.target_date));
       r.targetEnd = yrEnd(kv.target || r.bet.target_date);
     }
   }
@@ -340,9 +345,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
   el('lede').textContent = F.lede;
   const builtCounts = {};
   for (const r of rows) { const k = r.built ? r.built.result : 'unknown'; builtCounts[k] = (builtCounts[k] || 0) + 1; }
-  const withRatio = rows.filter(r => r.ratio != null && r.built && r.built.result !== 'building');
+  const withRatio = rows.filter(r => r.ratio != null && !r.program && r['cost-schedule'].result !== 'building');
   const over = withRatio.filter(r => r.ratio > 1.15).length;
-  const arrived = rows.filter(r => r.firstData && !r.firstDataProjected && r.built && r.built.result === 'yes');
+  const arrived = rows.filter(r => r.firstData && !r.firstDataProjected && !r.program);
   const lags = arrived.map(r => r.firstData - RANK_YEAR[r.bet.source_report]).sort((a, b) => a - b);
   const median = a => a.length ? (a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2) : null;
   const sci = rows.filter(r => r.science);
@@ -351,7 +356,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     { v: rows.length, l: 'ranked bets scored', s: '12 from Astro2010, 21 from P5 2014' },
     { v: (builtCounts.yes || 0) + (builtCounts.partial || 0), l: 'built or partly built', s: `${builtCounts.building || 0} still being built, ${(builtCounts.no || 0) + (builtCounts.cancelled || 0)} never` },
     { v: `${over} of ${withRatio.length}`, l: 'finished bets cost over 15% more than first estimated', s: 'by the report or the first agency baseline' },
-    { v: median(lags) != null ? `${median(lags)} yr` : '–', l: 'median wait from ranking to first data', s: `${arrived.length} built bets with a first-data date` },
+    { v: median(lags) != null ? `${median(lags)} yr` : 'n/a', l: 'median wait from ranking to first data', s: `${arrived.length} bets that have taken first data` },
     { v: `${sciAnswered} of ${sci.length}`, l: 'science questions answered so far', s: 'of the five scored in depth' },
   ];
   el('scoreboard').innerHTML = tiles.map(t => `<div class="tile"><span class="v">${esc(t.v)}</span><span class="l">${esc(t.l)}</span><span class="s">${esc(t.s)}</span></div>`).join('');
@@ -410,7 +415,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     const legend = order.map(k => `<span><i style="background:${COLOR[k]}"></i>${esc(LABEL[k])}</span>`).join('');
     el('built-band').innerHTML = `
       <div class="title"><h3>Where each bet stands today</h3><span class="note">Share of bets, by outcome. Hover a segment for the names.</span></div>
-      <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Built status by report">${g}</svg>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Built status by report">${g}</svg></div>
       <div class="legend">${legend}</div>
       <details class="tbl"><summary>Table view</summary><div class="scroller"><table><tr><th>Report</th>${order.map(k => `<th class="num">${esc(LABEL[k])}</th>`).join('')}</tr>
       ${groups.map(grp => { const sel = rows.filter(r => grp.k === 'all' || r.bet.source_report === grp.k); return `<tr><td>${esc(grp.label)}</td>${order.map(k => `<td class="num">${sel.filter(r => r.built && r.built.result === k).length}</td>`).join('')}</tr>`; }).join('')}
@@ -422,7 +427,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
   // ---- Q2: cost ratio ----
   el('q2-text').innerHTML = F.q2.text;
   (function costChart() {
-    const items = rows.filter(r => r.ratio != null).sort((a, b) => b.ratio - a.ratio);
+    const items = rows.filter(r => r.ratio != null && !r.program).sort((a, b) => b.ratio - a.ratio);
     const W = 900, LW = 250, RW = 70, RH = 22, PAD = 10, AX = 28;
     const H = PAD + items.length * RH + AX + 10;
     const maxR = Math.max(3, Math.ceil(Math.max(...items.map(r => r.ratio)) * 2) / 2);
@@ -446,7 +451,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     });
     el('cost-band').innerHTML = `
       <div class="title"><h3>Cost today versus the first estimate</h3><span class="note">Ratio of latest cost to the first estimate. 1x means on budget. * still being built, so the ratio can move.</span></div>
-      <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cost ratio by bet">${g}</svg>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cost ratio by bet">${g}</svg></div>
       <div class="legend"><span><i style="background:var(--good)"></i>Within 15%</span><span><i style="background:var(--warn)"></i>Over, up to 2x</span><span><i style="background:var(--bad)"></i>More than 2x</span><span><i style="background:var(--accent);opacity:.55"></i>Faded: still being built</span></div>
       <details class="tbl"><summary>Table view, with the basis of each number</summary><div class="scroller"><table><tr><th>Bet</th><th class="num">Ratio</th><th>First estimate</th><th>Latest</th><th>Status</th></tr>
       ${items.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${r.ratio.toFixed(2)}</td><td>${esc(r.kv.cost_at_ranking || '')}</td><td>${esc(r.kv.cost_latest || '')}</td><td><span class="chip ${esc(r['cost-schedule'].result)}"><i></i>${esc(r['cost-schedule'].result)}</span></td></tr>`).join('')}
@@ -456,7 +461,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
 
   // ---- Q2: timeline ----
   (function timeChart() {
-    const items = rows.filter(r => r['cost-schedule'] && (r.firstData || r.targetStart)).sort((a, b) => (a.firstData || 2040) - (b.firstData || 2040));
+    const items = rows.filter(r => r['cost-schedule'] && !r.program && (r.firstData || r.targetStart)).sort((a, b) => (a.firstData || 2040) - (b.firstData || 2040));
     const W = 900, LW = 250, RH = 22, PAD = 10, AX = 28, RPAD = 30;
     const H = PAD + items.length * RH + AX + 10;
     const Y0 = 2009, Y1 = 2037;
@@ -485,7 +490,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     });
     el('time-band').innerHTML = `
       <div class="title"><h3>From ranking to first data</h3><span class="note">Grey dot: the year it was ranked. Grey box: the date the report promised. Blue dot: first data (hollow if still projected).</span></div>
-      <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline from ranking to first data">${g}</svg>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline from ranking to first data">${g}</svg></div>
       <details class="tbl"><summary>Table view</summary><div class="scroller"><table><tr><th>Bet</th><th class="num">Ranked</th><th>Promised</th><th>First data</th><th class="num">Years</th></tr>
       ${items.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${RANK_YEAR[r.bet.source_report]}</td><td>${esc(r.kv.target || r.bet.target_date || '')}</td><td>${esc(r.kv.first_data || '')}</td><td class="num">${r.firstData ? r.firstData - RANK_YEAR[r.bet.source_report] : ''}</td></tr>`).join('')}
       </table></div></details>`;
@@ -505,9 +510,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
       return `<article class="case">
         <div class="head"><span class="eyebrow">${esc(REPORT[r.bet.source_report])} · ${esc(r.bet.science_driver.replace(/;/g, ', ').replace(/-/g, ' '))}</span><h3>${esc(r.name)}</h3><p class="q">${esc(r.copy.question_plain)}</p></div>
         <div class="verdict"><span class="chip ${esc(res)}"><i></i>${esc(chipLabel)}</span><span class="chip conf ${esc(s.confidence || '')}">${s.confidence === 'guess' ? 'confidence: guess' : 'confidence: confident'}</span></div>
-        ${s.value ? `<div class="fact">${esc(s.value)}</div>` : ''}
         <div class="story">${c.story || ''}</div>
-        <div class="srcs"><span>Ledger rationale: ${esc(s.rationale || '')}</span>${srcs.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, '').slice(0, 70))}</a>`).join('')}</div>
+        <details class="tbl"><summary>The numbers, as recorded in the ledger</summary><div class="stack" style="margin-top:8px">${s.value ? `<div class="fact">${esc(s.value)}</div>` : ''}<div class="srcs"><span>Ledger rationale: ${esc(s.rationale || '')}</span></div></div></details>
+        <div class="srcs">${srcs.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener">Source: ${esc(u.replace(/^https?:\/\//, '').slice(0, 70))}</a>`).join('')}</div>
       </article>`;
     }).join('');
   })();
@@ -521,14 +526,14 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
       const committee = r.actors.filter(a => a.type === 'committee');
       const agencies = r.actors.filter(a => a.type === 'agency');
       const b = r.built || {}; const cs = r['cost-schedule'] || {}; const s = r.science || {};
-      const score = (q, o) => o.result ? `<span class="chip ${esc(o.result)}"><i></i>${esc(o.result)}</span>` : '<span class="muted">not scored</span>';
+      const score = (q, o, who) => o.result ? `<span class="chip ${esc(o.result)}"><i></i>${esc(o.result)}</span> <span class="muted small">${who}</span>` : '<span class="muted small">not scored (never built)</span>';
       return `<div class="card"><h3>${esc(r.name)}</h3>
         <dl>
           <dt>Ranked by</dt><dd>${committee.length ? committee.map(a => esc(a.name) + (a.role_at_bet ? ` <span class="muted small">(${esc(a.role_at_bet)})</span>` : '')).join('<br>') : esc(REPORT[r.bet.source_report])}</dd>
           <dt>Funded by</dt><dd>${agencies.length ? agencies.map(a => esc(a.name) + (a.role_at_bet ? ` <span class="muted small">(${esc(a.role_at_bet)})</span>` : '')).join('<br>') : esc(r.bet.agency)}</dd>
-          <dt>Built</dt><dd>${score('built', b)} <span class="muted small">scores the agency</span></dd>
-          <dt>Cost, time</dt><dd>${score('cost', cs)} <span class="muted small">scores the agency and project</span></dd>
-          <dt>Science</dt><dd>${score('science', s)} <span class="muted small">scores the committee's forecast</span></dd>
+          <dt>Built</dt><dd>${score('built', b, 'scores the agency')}</dd>
+          <dt>Cost, time</dt><dd>${score('cost', cs, 'scores the agency and project')}</dd>
+          <dt>Science</dt><dd>${score('science', s, "scores the committee's forecast")}</dd>
         </dl></div>`;
     }).join('');
   })();

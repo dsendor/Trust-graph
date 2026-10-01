@@ -1,30 +1,114 @@
 {
-  "as_of": "October 2026",
-  "lede": "TO FILL",
-  "primer": [
-    {"h": "Two reports, two fields", "p": "<b>Astro2010</b> is the astronomers' ten-year plan, published in 2010 by the National Academies. <b>P5 2014</b> is the particle physicists' plan, written for the Department of Energy and the National Science Foundation. Each ranks projects in order of priority."},
-    {"h": "What a bet is", "p": "Every ranked project is a bet: the committee says what it is for, roughly what it costs, and roughly when it will deliver. We log 33 of them, 12 from Astro2010 and 21 from P5 2014, in the words the reports used."},
-    {"h": "Four questions per bet", "p": "Was it built? What did it cost and when did it arrive? Did it answer the scientific question it was sold on? And whose call was it? The first two have been studied before. The last two have not."},
-    {"h": "Who gets scored", "p": "A cancelled project scores the funding agency, not the scientists who proposed it. Whether the science question got answered scores the committee's forecast. Each question is attributed separately."},
-    {"h": "The hard question", "p": "Nobody had checked facilities against the specific promise written in the report. That is question 3, scored here for five bets on three named questions: dark energy, the neutrino mass ordering, and gravitational waves from the Big Bang."},
-    {"h": "Where the numbers come from", "p": "Built status and costs come from agency budget documents, the Academies' 2016 midterm review, Fermilab and AIP news, and a 2024 review by Pan and Trimble. Science results come from the experiments' own published papers."}
+ "as_of": "October 2026",
+ "lede": "In 2010 and 2014, American astronomers and particle physicists each ranked the big experiments they wanted built next. Here are 33 of those promises, checked against what actually happened: whether each was built, what it cost, when it arrived, whether it answered the question it was sold on, and whose call it was.",
+ "primer": [
+  {
+   "h": "Two reports, two fields",
+   "p": "<b>Astro2010</b> is the astronomers' ten-year plan, published in 2010 by the National Academies. <b>P5 2014</b> is the particle physicists' plan, written for the Department of Energy and the National Science Foundation. Each ranks projects in order of priority."
+  },
+  {
+   "h": "What a bet is",
+   "p": "Every ranked project is a bet: the committee says what it is for, roughly what it costs, and roughly when it will deliver. We log 33 of them, 12 from Astro2010 and 21 from P5 2014, in the words the reports used."
+  },
+  {
+   "h": "Four questions per bet",
+   "p": "Was it built? What did it cost and when did it arrive? Did it answer the scientific question it was sold on? And whose call was it? The first two have been studied before. The last two have not."
+  },
+  {
+   "h": "Who gets scored",
+   "p": "A cancelled project scores the funding agency, not the scientists who proposed it. Whether the science question got answered scores the committee's forecast. Each question is attributed separately."
+  },
+  {
+   "h": "The hard question",
+   "p": "Nobody had checked facilities against the specific promise written in the report. That is question 3, scored here for five bets on three named questions: dark energy, the neutrino mass ordering, and gravitational waves from the Big Bang."
+  },
+  {
+   "h": "Where the numbers come from",
+   "p": "Built status and costs come from agency budget documents, the Academies' 2016 midterm review, Fermilab and AIP news, and a 2024 review by Pan and Trimble. Science results come from the experiments' own published papers."
+  }
+ ],
+ "confidence_note": "<b>How to read the labels.</b> Every judgment in the ledger carries a source link, a one-line reason, and a confidence: <span class=\"chip conf\">confident</span> when a primary document states it, <span class=\"chip conf guess\">confidence: guess</span> when it rests on a secondary source, a search snippet, or a reading of the evidence that a specialist might dispute. Guesses are shown, not hidden.",
+ "q1": {
+  "text": "Of 33 bets, 10 are built and running, 6 were built in part, 8 are still under construction, 7 were never built and 2 were formally cancelled. That matches the rule of thumb from a 2024 review of seven astronomy surveys by Pan and Trimble: roughly a third on time, a third late or paid for by someone else, a third never.",
+  "after": "<div class=\"stack\"><p><b>What the two never-built lists have in common: nothing.</b> Six of the seven never-built particle physics bets are ones the committee itself declined to fund in every budget scenario, so the ledger records a forecast that held. The astronomy misses are different: half of Astro2010's large and medium projects ended up built by Europe or by private partners after the US withdrew (the gravitational-wave observatory LISA and the X-ray observatory IXO both lost NASA as an equal partner in 2011) or never paid its share (the giant telescopes, the gamma-ray array).</p></div>"
+ },
+ "q2": {
+  "text": "Twelve bets have a first estimate and a later cost on the same basis. Whether the estimate held depends on which estimate it was. The three astronomy projects costed by the survey itself all ran 1.7 to 2.7 times over. The nine particle physics projects costed by the Department of Energy after ranking have a median of exactly 1.0, and every one that has finished landed within 3 percent of its official baseline. The overruns live in the early numbers: the ones committees rank on.",
+  "after": "<div class=\"stack\"><p><b>Time.</b> Eleven bets have taken their first data. The median wait from ranking was 7 years, but the two astronomy flagships took 15 and 16: the Rubin Observatory released its first images in June 2025 and the Roman Space Telescope launched in August 2026, each about six years later than the 2010 report promised. Smaller particle physics projects arrived in 1 to 8 years, mostly on or ahead of schedule. Eight bets are still to come, projected 12 to 25 years after ranking.</p><p class=\"muted small\">Bases differ and are labelled in every row: the survey appraisals are in 2010 dollars and total cost, Department of Energy figures are then-year dollars and the US share. The ledger labels rather than inflation-adjusts, so the astronomy ratios overstate the real overrun by roughly the inflation of the intervening years.</p></div>"
+ },
+ "q3": {
+  "text": "This is the question nobody had checked. Each report named a specific scientific question for each project. Five bets on three questions are scored here against the promise as written: dark energy (three projects), which neutrino is heaviest (one), and gravitational waves from the Big Bang (one). The verdict is one reader's call on the published results, with every source listed, and it is meant to be argued with.",
+  "order": [
+   "p5-2014-desi",
+   "astro2010-wfirst",
+   "astro2010-lsst",
+   "p5-2014-lbnf",
+   "p5-2014-cmb-s4"
   ],
-  "confidence_note": "<b>How to read the labels.</b> Every judgment in the ledger carries a source link, a one-line reason, and a confidence: <span class=\"chip conf\">confident</span> when a primary document states it, <span class=\"chip conf guess\">confidence: guess</span> when it rests on a secondary source, a search snippet, or a reading of the evidence that a specialist might dispute. Guesses are shown, not hidden.",
-  "q1": {"text": "TO FILL", "after": ""},
-  "q2": {"text": "TO FILL", "after": ""},
-  "q3": {"text": "TO FILL", "order": ["p5-2014-desi", "astro2010-wfirst", "astro2010-lsst", "p5-2014-lbnf", "p5-2014-cmb-s4"], "cases": {}, "after": ""},
-  "q4": {"text": "TO FILL", "after": ""},
-  "method": "TO FILL",
-  "glossary": [
-    {"t": "Decadal survey", "d": "A once-a-decade report in which a field of science ranks what it wants built next. Astro2010 is the 2010 astronomy one."},
-    {"t": "P5", "d": "The Particle Physics Project Prioritization Panel, which does the same job for US particle physics. The 2014 report is scored here."},
-    {"t": "Dark energy", "d": "The name for whatever is making the expansion of the universe speed up. Its 'equation of state' is a number describing whether it is constant (like Einstein's cosmological constant) or changes over time."},
-    {"t": "Neutrino", "d": "A nearly massless, nearly invisible particle produced in nuclear reactions. There are three kinds, and which one is heaviest (the 'mass ordering') is unknown."},
-    {"t": "Cosmic microwave background (CMB)", "d": "The oldest light in the universe, released 380,000 years after the Big Bang. Patterns in it record the universe's first moments."},
-    {"t": "Inflation", "d": "The theory that the universe expanded enormously in its first fraction of a second. If true, it should have left faint gravitational waves, visible as a swirl pattern (B-modes) in the CMB. The 'tensor-to-scalar ratio', r, measures how strong they are."},
-    {"t": "Sigma", "d": "How unlikely a result is to be a statistical fluke. Physicists call 5 sigma a discovery; 3 sigma is 'evidence'; 2 sigma is a hint."},
-    {"t": "Baseline, TPC, CD-2", "d": "US Department of Energy projects pass 'critical decisions' CD-0 to CD-4. At CD-2 the project gets an official cost and schedule, the baseline, with a Total Project Cost (TPC). Ratios on this page compare the latest cost with that first baseline, or with the report's own estimate for Astro2010."},
-    {"t": "First data", "d": "The date a facility first recorded the kind of data it was built for: first beam, first light, or the start of its survey."},
-    {"t": "Pan and Trimble (2024)", "d": "A review of seven astronomy decadal surveys by Jiale Pan and Virginia Trimble, which sorts every recommended facility into five categories from 'in operation within 15 years' to 'never'. The ledger cites it for Astro2010 rather than redoing that work."}
-  ]
+  "cases": {
+   "p5-2014-desi": {
+    "story": "<p>Dark energy is the name for whatever is pushing the universe apart faster and faster. The simplest idea is that it is a constant, built into empty space. The 2014 report asked DESI to measure how strong it is to 5 percent by 2020 and 1 percent by 2025.</p><p>DESI mapped 47 million galaxies, more than it planned. With three of its five years of data it has pinned the strength of dark energy to about 2 to 3.5 percent, so the first goal is met and the second is not yet. The surprise is the shape of the answer: every way of combining DESI's map with other data prefers a dark energy that is slowly weakening over time, not a constant. The hint is strong (2.8 to 4.2 sigma depending on which supernova data are added) but below the 5 sigma that physicists require to call something a discovery. The full five-year result is due in 2027.</p>"
+   },
+   "astro2010-wfirst": {
+    "story": "<p>Roman was the astronomers' top space priority in 2010, promised for 2020. It launched on 30 August 2026 and is being commissioned. It has not yet taken the survey data it needs, so it has not answered anything; its first dark energy result is expected around 2029 or 2030.</p><p>The question has moved since 2010. Roman was sold as the instrument that would find out why the expansion is accelerating. Its job now is to confirm or refute DESI's hint that dark energy is changing.</p>"
+   },
+   "astro2010-lsst": {
+    "story": "<p>Rubin was the top ground priority in 2010, promised for the late 2010s. It released its first images in June 2025 and started its ten-year survey on 30 June 2026. No cosmology result exists yet. The observatory's own commissioning paper says one year of survey data should match the precision of DESI plus the cosmic microwave background, but also that the early data are harder to calibrate than expected, so the first competitive dark energy result is plausibly 2028.</p>"
+   },
+   "p5-2014-lbnf": {
+    "story": "<p>Neutrinos come in three kinds, and nobody knows which is the heaviest (the 'mass ordering'). DUNE was the particle physicists' top priority in 2014, sold on settling that, and on whether neutrinos and antineutrinos behave differently, a possible reason the universe contains matter at all.</p><p>DUNE has no data. Its first beam is now expected in 2031 and a three-sigma answer on the ordering around 2034, near the end of the window the 2014 report gave. Meanwhile the question is being chased by others: the JUNO detector in China has been running since August 2025, and JUNO together with the existing NOvA experiment is projected to reach three sigma within about five years, before DUNE can. If that happens, this row becomes a surprise: the question answered, but not by the bet.</p>"
+   },
+   "p5-2014-cmb-s4": {
+    "story": "<p>If the universe began with a burst of inflation, it should have left faint gravitational waves, visible as a swirl pattern in the oldest light. The 2014 goal had two halves: check a claimed detection (BICEP2) by 2017, then measure the signal's strength to percent level by 2025.</p><p>The first half was done in 2015 by existing telescopes: the BICEP2 signal was dust. The second half is unmet. The best limit on the signal is still 10 to 20 times above the level CMB-S4 was designed to reach, and the project itself, endorsed by three successive community reports, was dropped by the Department of Energy and the National Science Foundation in July 2025 after NSF ruled out the South Pole site. What remains is a smaller international project in Chile, the Simons Observatory, forecast to get close by 2035.</p>"
+   }
+  },
+  "after": "<div class=\"stack\"><p><b>One of five answered, and it answered a question the report did not ask.</b> Three cannot be scored before 2028 to 2034: the time from building a facility to answering its question runs longer than the time to build it, and the ledger's horizon is already 12 to 16 years. One was cancelled before it could try. Both reports sold their dark energy bets on the same question; the first data came from the cheapest of the three projects, and the two flagships are now cast as its check.</p></div>"
+ },
+ "q4": {
+  "text": "Each question is attributed separately. A cancellation scores the funding agency, not the scientists who proposed the project. Whether the science question was answered scores the committee's forecast. Cost scores the agency and the project. The ledger records the committee, its chair, the project's champions and the agencies for each of the five bets; names stay in the internal data and this page shows the committee and agency level only.",
+  "after": "<div class=\"stack\"><p><b>What kills a bet the whole community agreed on?</b> CMB-S4 was endorsed by the 2014 particle physics plan, the 2020 astronomy survey and the 2023 particle physics plan. It died on a site decision and a budget: NSF ruled out the South Pole in May 2024, and both agencies withdrew in July 2025. Consensus among scientists did not protect it. The same pattern took NASA out of LISA and IXO within a year of the 2010 report, and kept NSF out of the giant telescopes and the gamma-ray array for a decade.</p><p><b>Where the forecasts held:</b> every finished Department of Energy project came in on budget, and five of six finished particle physics bets arrived inside the window the report gave. The misses are the two largest, DUNE and its accelerator, whose first official cost baselines came three to four years after the ranking and have roughly doubled since.</p></div>"
+ },
+ "method": "<h2>How this was made</h2><p>Each report was read by two language models independently, which extracted every ranked item into the same fields (the promise as written, the science question, cost, date, funder). Where the two disagreed, a third model adjudicated and the disagreement was logged; that log doubles as a record of how reliable each model was per field. Outcomes were then researched one bet at a time from primary documents: Department of Energy budget justifications and project reports, the National Academies' 2016 midterm review and 2020 survey, Fermilab and American Institute of Physics news, and the experiments' own papers on arXiv. For astronomy, built status starts from Pan and Trimble's 2024 review and is updated where their text was stale.</p><p>Every row carries a source link and a one-line reason. When a fact could only be found in a search snippet because the primary site was unreachable, the row says so and is marked a guess. Costs are labelled by basis (which year's dollars, total or US share, which stage of estimate) rather than converted. Named people are recorded in the internal data for attribution but are not published; this page shows committees and agencies only.</p><p>Three of the five science-question verdicts are 'not yet'. That is a finding, not a gap: it took 12 to 16 years for the flagships to start, and the questions they were built for will take several more. The ledger is designed to be re-scored as results arrive.</p><p class=\"muted small\">Data and documentation live in the project's repository: the three ledger tables, the extraction logs, the per-bet research notes, and a one-page scorecard.</p>",
+ "glossary": [
+  {
+   "t": "Decadal survey",
+   "d": "A once-a-decade report in which a field of science ranks what it wants built next. Astro2010 is the 2010 astronomy one."
+  },
+  {
+   "t": "P5",
+   "d": "The Particle Physics Project Prioritization Panel, which does the same job for US particle physics. The 2014 report is scored here."
+  },
+  {
+   "t": "Dark energy",
+   "d": "The name for whatever is making the expansion of the universe speed up. Its 'equation of state' is a number describing whether it is constant (like Einstein's cosmological constant) or changes over time."
+  },
+  {
+   "t": "Neutrino",
+   "d": "A nearly massless, nearly invisible particle produced in nuclear reactions. There are three kinds, and which one is heaviest (the 'mass ordering') is unknown."
+  },
+  {
+   "t": "Cosmic microwave background (CMB)",
+   "d": "The oldest light in the universe, released 380,000 years after the Big Bang. Patterns in it record the universe's first moments."
+  },
+  {
+   "t": "Inflation",
+   "d": "The theory that the universe expanded enormously in its first fraction of a second. If true, it should have left faint gravitational waves, visible as a swirl pattern (B-modes) in the CMB. The 'tensor-to-scalar ratio', r, measures how strong they are."
+  },
+  {
+   "t": "Sigma",
+   "d": "How unlikely a result is to be a statistical fluke. Physicists call 5 sigma a discovery; 3 sigma is 'evidence'; 2 sigma is a hint."
+  },
+  {
+   "t": "Baseline, TPC, CD-2",
+   "d": "US Department of Energy projects pass 'critical decisions' CD-0 to CD-4. At CD-2 the project gets an official cost and schedule, the baseline, with a Total Project Cost (TPC). Ratios on this page compare the latest cost with that first baseline, or with the report's own estimate for Astro2010."
+  },
+  {
+   "t": "First data",
+   "d": "The date a facility first recorded the kind of data it was built for: first beam, first light, or the start of its survey."
+  },
+  {
+   "t": "Pan and Trimble (2024)",
+   "d": "A review of seven astronomy decadal surveys by Jiale Pan and Virginia Trimble, which sorts every recommended facility into five categories from 'in operation within 15 years' to 'never'. The ledger cites it for Astro2010 rather than redoing that work."
+  }
+ ]
 }
