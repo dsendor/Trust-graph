@@ -1,0 +1,30 @@
+{
+  "as_of": "October 2026",
+  "lede": "TO FILL",
+  "primer": [
+    {"h": "Two reports, two fields", "p": "<b>Astro2010</b> is the astronomers' ten-year plan, published in 2010 by the National Academies. <b>P5 2014</b> is the particle physicists' plan, written for the Department of Energy and the National Science Foundation. Each ranks projects in order of priority."},
+    {"h": "What a bet is", "p": "Every ranked project is a bet: the committee says what it is for, roughly what it costs, and roughly when it will deliver. We log 33 of them, 12 from Astro2010 and 21 from P5 2014, in the words the reports used."},
+    {"h": "Four questions per bet", "p": "Was it built? What did it cost and when did it arrive? Did it answer the scientific question it was sold on? And whose call was it? The first two have been studied before. The last two have not."},
+    {"h": "Who gets scored", "p": "A cancelled project scores the funding agency, not the scientists who proposed it. Whether the science question got answered scores the committee's forecast. Each question is attributed separately."},
+    {"h": "The hard question", "p": "Nobody had checked facilities against the specific promise written in the report. That is question 3, scored here for five bets on three named questions: dark energy, the neutrino mass ordering, and gravitational waves from the Big Bang."},
+    {"h": "Where the numbers come from", "p": "Built status and costs come from agency budget documents, the Academies' 2016 midterm review, Fermilab and AIP news, and a 2024 review by Pan and Trimble. Science results come from the experiments' own published papers."}
+  ],
+  "confidence_note": "<b>How to read the labels.</b> Every judgment in the ledger carries a source link, a one-line reason, and a confidence: <span class=\"chip conf\">confident</span> when a primary document states it, <span class=\"chip conf guess\">confidence: guess</span> when it rests on a secondary source, a search snippet, or a reading of the evidence that a specialist might dispute. Guesses are shown, not hidden.",
+  "q1": {"text": "TO FILL", "after": ""},
+  "q2": {"text": "TO FILL", "after": ""},
+  "q3": {"text": "TO FILL", "order": ["p5-2014-desi", "astro2010-wfirst", "astro2010-lsst", "p5-2014-lbnf", "p5-2014-cmb-s4"], "cases": {}, "after": ""},
+  "q4": {"text": "TO FILL", "after": ""},
+  "method": "TO FILL",
+  "glossary": [
+    {"t": "Decadal survey", "d": "A once-a-decade report in which a field of science ranks what it wants built next. Astro2010 is the 2010 astronomy one."},
+    {"t": "P5", "d": "The Particle Physics Project Prioritization Panel, which does the same job for US particle physics. The 2014 report is scored here."},
+    {"t": "Dark energy", "d": "The name for whatever is making the expansion of the universe speed up. Its 'equation of state' is a number describing whether it is constant (like Einstein's cosmological constant) or changes over time."},
+    {"t": "Neutrino", "d": "A nearly massless, nearly invisible particle produced in nuclear reactions. There are three kinds, and which one is heaviest (the 'mass ordering') is unknown."},
+    {"t": "Cosmic microwave background (CMB)", "d": "The oldest light in the universe, released 380,000 years after the Big Bang. Patterns in it record the universe's first moments."},
+    {"t": "Inflation", "d": "The theory that the universe expanded enormously in its first fraction of a second. If true, it should have left faint gravitational waves, visible as a swirl pattern (B-modes) in the CMB. The 'tensor-to-scalar ratio', r, measures how strong they are."},
+    {"t": "Sigma", "d": "How unlikely a result is to be a statistical fluke. Physicists call 5 sigma a discovery; 3 sigma is 'evidence'; 2 sigma is a hint."},
+    {"t": "Baseline, TPC, CD-2", "d": "US Department of Energy projects pass 'critical decisions' CD-0 to CD-4. At CD-2 the project gets an official cost and schedule, the baseline, with a Total Project Cost (TPC). Ratios on this page compare the latest cost with that first baseline, or with the report's own estimate for Astro2010."},
+    {"t": "First data", "d": "The date a facility first recorded the kind of data it was built for: first beam, first light, or the start of its survey."},
+    {"t": "Pan and Trimble (2024)", "d": "A review of seven astronomy decadal surveys by Jiale Pan and Virginia Trimble, which sorts every recommended facility into five categories from 'in operation within 15 years' to 'never'. The ledger cites it for Astro2010 rather than redoing that work."}
+  ]
+}
