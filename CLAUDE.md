@@ -32,6 +32,8 @@ five bets scored on the science question with attribution, plus a one-page score
 python3 scripts/compare_extractions.py <a>.json <b>.json <out>.csv --map <map>.csv --evidence <rows>.csv  # line up two model extractions
 python3 scripts/compare_extractions.py --score <out>.csv   # per-model, per-field accuracy after adjudication
 python3 scripts/check_quotes.py <source>.txt <extraction>.json ...   # are "verbatim" quotes really verbatim
+python3 scripts/build_bets.py <report> <adjudicated>.csv <a>.json <b>.json --map <map>.csv  # merge into data/bets.csv
+python3 scripts/fill_agency.py <agency-records>.csv   # fill agencies the report does not name
 ```
 
 ## Where to look
@@ -41,7 +43,8 @@ python3 scripts/check_quotes.py <source>.txt <extraction>.json ...   # are "verb
 | What the ledger is, seed rows, build plan | `docs/promise-ledger.md` |
 | Ledger vs trust graph, and why ledger first | `docs/trust-graph-or-ledger.md` |
 | Columns, allowed values, outcome categories | `docs/ledger-schema.md` |
-| Current weekend: status, steps, what is blocked | `docs/weekend-1.md` |
+| **What is left, the goal, and what the files do not say** | **`docs/handoff.md`, read first** |
+| Weekend 1 record and the pipeline steps | `docs/weekend-1.md` |
 | Source documents and what they do and do not cover | `sources/README.md` |
 | Two-model extraction, and how conflicts are settled (Opus decides) | `research-log/hand-check/README.md` |
 | Notion access and the source pages | `docs/notion.md` |
