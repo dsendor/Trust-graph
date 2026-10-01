@@ -26,6 +26,29 @@ Weekend 1 merged.
 **Not in scope until David says so:** the trust graph build (schema, code, trust math),
 publishing anything, emailing anyone, making the repo public.
 
+## Status, 2026-10-01 (after the scorecard session)
+
+All four "done" items above are in: 24 `cost-schedule` outcomes, 5 `science` outcomes,
+107 actor rows for the five bets, and `docs/scorecard.md`. `scripts/scorecard_stats.py`
+prints the scorecard's numbers from `data/`. A website (`site/`, built by
+`scripts/build_site.py`) explains the results for a non-physicist at committee and agency
+level only. Research notes per bet are in `research-log/outcomes/*-cost-schedule-*.md`,
+`science-question-evidence.md` and `actors-draft.md`.
+
+Calls made this session that David may want to revisit: Rubin's `cost-schedule` is `no`
+by the letter of the rule (First Look 5.5 years past the window; `partial` if ComCam first
+photons count); ACTA's is `no` on US terms (the US share never arrived) while its `built`
+row stays `building` for CTAO; LAr1 is scored on SBND against the SBN proposal's 2018
+plan; Mu2e sits exactly on the yes/partial cost line and the partial/no schedule line;
+CMB-S4's science row is `no` with `partial` noted as defensible. Of the five snippet-based
+facts flagged below, the LBNF cost figures are now confirmed from the budget
+justifications and SuperCDMS's mid-2026 start from Fermilab news; NSF's share of the
+IceCube Upgrade, the exact CMB-S4 statement date, and the Roman commissioning dates still
+rest on snippets and are marked `guess`.
+
+Not done, by rule: CLAUDE.md "Where to look" does not yet point at `docs/scorecard.md`,
+`scripts/scorecard_stats.py` or `site/` (rule 1: ask David before editing that file).
+
 ## Decisions David has made
 
 - **Opus settles every conflict** between extraction models. David does not hand check.
