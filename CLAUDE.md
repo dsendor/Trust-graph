@@ -29,7 +29,9 @@ five bets scored on the science question with attribution, plus a one-page score
 ## Commands
 
 ```bash
-# none yet. Add each script here with a one-line comment when it exists.
+python3 scripts/compare_extractions.py <a>.json <b>.json <out>.csv --map <map>.csv --evidence <rows>.csv  # line up two model extractions
+python3 scripts/compare_extractions.py --score <out>.csv   # per-model, per-field accuracy after adjudication
+python3 scripts/check_quotes.py <source>.txt <extraction>.json ...   # are "verbatim" quotes really verbatim
 ```
 
 ## Where to look
@@ -38,5 +40,9 @@ five bets scored on the science question with attribution, plus a one-page score
 |---|---|
 | What the ledger is, seed rows, build plan | `docs/promise-ledger.md` |
 | Ledger vs trust graph, and why ledger first | `docs/trust-graph-or-ledger.md` |
+| Columns, allowed values, outcome categories | `docs/ledger-schema.md` |
+| Current weekend: status, steps, what is blocked | `docs/weekend-1.md` |
+| Source documents and what they do and do not cover | `sources/README.md` |
+| Two-model extraction, and how conflicts are settled (Opus decides) | `research-log/hand-check/README.md` |
 | Notion access and the source pages | `docs/notion.md` |
 | How to write *this* file | `docs/claude-md-guidelines.md` |

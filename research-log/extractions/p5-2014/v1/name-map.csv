@@ -1,0 +1,46 @@
+model,project,bet_id
+claude-sonnet,Mu2e,p5-2014-mu2e
+claude-sonnet,Muon g-2,p5-2014-muon-g-2
+claude-sonnet,"HL-LHC (High-Luminosity LHC, incl. ATLAS/CMS upgrades)",p5-2014-hl-lhc
+claude-sonnet,LHC Phase-1 Upgrade,p5-2014-lhc-phase-1
+claude-sonnet,LBNF (Long-Baseline Neutrino Facility),p5-2014-lbnf
+claude-sonnet,PIP-II (Proton Improvement Plan-II),p5-2014-pip-ii
+claude-sonnet,ILC (International Linear Collider),p5-2014-ilc
+claude-sonnet,NuSTORM,p5-2014-nustorm
+claude-sonnet,RADAR,p5-2014-radar
+claude-sonnet,"LSST (Large Synoptic Survey Telescope, particle-physics components)",p5-2014-lsst
+claude-sonnet,DM G2 (second-generation dark matter direct detection),p5-2014-dm-g2
+claude-sonnet,CMB-S4 (Stage 4 Cosmic Microwave Background experiment),p5-2014-cmb-s4
+claude-sonnet,DM G3 (third-generation dark matter direct detection),p5-2014-dm-g3
+claude-sonnet,PINGU (IceCube infill array),p5-2014-pingu
+claude-sonnet,ORKA,p5-2014-orka
+claude-sonnet,MAP (Muon Accelerator Program),p5-2014-map
+claude-sonnet,MICE (Muon Ionization Cooling Experiment),p5-2014-mice
+claude-sonnet,CHIPS,p5-2014-chips
+claude-sonnet,LAr1,p5-2014-lar1
+claude-sonnet,DESI (Dark Energy Spectroscopic Instrument),p5-2014-desi
+claude-sonnet,Short Baseline Neutrino (SBN) Portfolio,p5-2014-sbn
+claude-sonnet,"CTA (Cherenkov Telescope Array, U.S. dark-matter-sensitivity component)",p5-2014-cta
+claude-haiku,Mu2e experiment,p5-2014-mu2e
+claude-haiku,Muon g-2 experiment,p5-2014-muon-g-2
+claude-haiku,High-Luminosity LHC (HL-LHC) upgrades,p5-2014-hl-lhc
+claude-haiku,LHC Phase-1 upgrade,p5-2014-lhc-phase-1
+claude-haiku,Long-Baseline Neutrino Facility (LBNF) + Proton Improvement Plan II (PIP-II),p5-2014-lbnf
+claude-haiku,International Linear Collider (ILC),p5-2014-ilc
+claude-haiku,Large Synoptic Survey Telescope (LSST),p5-2014-lsst
+claude-haiku,Dark Energy Spectroscopic Instrument (DESI),p5-2014-desi
+claude-haiku,Generation 2 Dark Matter direct detection experiments (DM G2),p5-2014-dm-g2
+claude-haiku,Generation 3 Dark Matter direct detection experiments (DM G3),p5-2014-dm-g3
+claude-haiku,Cosmic Microwave Background Stage 4 (CMB-S4),p5-2014-cmb-s4
+claude-haiku,Small Projects Portfolio,p5-2014-small-projects-portfolio
+claude-haiku,Accelerator R&D and Test Facilities,p5-2014-accel-rd
+claude-haiku,Short Baseline Neutrino Portfolio,p5-2014-sbn
+claude-haiku,Cherenkov Telescope Array (CTA) - U.S. contribution,p5-2014-cta
+claude-haiku,PINGU (Precision IceCube Next Generation Upgrade),p5-2014-pingu
+claude-haiku,NuSTORM,p5-2014-nustorm
+claude-haiku,RADAR,p5-2014-radar
+claude-haiku,CHIPS,p5-2014-chips
+claude-haiku,LAr1,p5-2014-lar1
+claude-haiku,ORKA (Rare Kaon Decay experiment),p5-2014-orka
+claude-haiku,Muon Accelerator Program (MAP),p5-2014-map
+claude-haiku,Water Cherenkov Neutrino Detector (Scenario C enhancement),p5-2014-water-cherenkov

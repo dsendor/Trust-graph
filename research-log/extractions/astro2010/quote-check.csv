@@ -1,0 +1,25 @@
+model,project,quote_found
+claude-sonnet,WFIRST,NO
+claude-sonnet,Explorer Program,yes
+claude-sonnet,LISA,yes
+claude-sonnet,IXO,yes
+claude-sonnet,New Worlds Technology Development Program,yes
+claude-sonnet,Inflation Probe Technology Development Program,yes
+claude-sonnet,LSST,yes
+claude-sonnet,Mid-Scale Innovations Program,yes
+claude-sonnet,GSMT,yes
+claude-sonnet,ACTA,yes
+claude-sonnet,CCAT,yes
+claude-sonnet,SPICA,yes
+claude-haiku,SPICA,yes
+claude-haiku,CCAT,yes
+claude-haiku,LSST,yes
+claude-haiku,Mid-Scale Innovations Program,yes
+claude-haiku,GSMT,yes
+claude-haiku,ACTA,yes
+claude-haiku,New Worlds Technology Development Program,yes
+claude-haiku,Inflation Probe Technology Development Program,yes
+claude-haiku,WFIRST,yes
+claude-haiku,Explorer Program,yes
+claude-haiku,LISA,yes
+claude-haiku,IXO,yes

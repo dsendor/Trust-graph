@@ -1,0 +1,44 @@
+model,project,bet_id
+claude-sonnet,Mu2e,p5-2014-mu2e
+claude-sonnet,Muon g-2,p5-2014-muon-g-2
+claude-sonnet,HL-LHC,p5-2014-hl-lhc
+claude-sonnet,LHC Phase 1 upgrade,p5-2014-lhc-phase-1
+claude-sonnet,LBNF,p5-2014-lbnf
+claude-sonnet,PIP-II,p5-2014-pip-ii
+claude-sonnet,ILC,p5-2014-ilc
+claude-sonnet,NuSTORM,p5-2014-nustorm
+claude-sonnet,RADAR,p5-2014-radar
+claude-sonnet,LSST,p5-2014-lsst
+claude-sonnet,DM G2,p5-2014-dm-g2
+claude-sonnet,DM G3,p5-2014-dm-g3
+claude-sonnet,CMB-S4,p5-2014-cmb-s4
+claude-sonnet,PINGU,p5-2014-pingu
+claude-sonnet,ORKA,p5-2014-orka
+claude-sonnet,CHIPS,p5-2014-chips
+claude-sonnet,LAr1,p5-2014-lar1
+claude-sonnet,DESI,p5-2014-desi
+claude-sonnet,CTA,p5-2014-cta
+claude-sonnet,Water Cherenkov Detector,p5-2014-water-cherenkov
+claude-sonnet,Project-X,p5-2014-project-x
+claude-sonnet,LBNE,p5-2014-lbne
+claude-sonnet,MICE,p5-2014-mice
+claude-haiku,Mu2e,p5-2014-mu2e
+claude-haiku,Muon g-2,p5-2014-muon-g-2
+claude-haiku,HL-LHC,p5-2014-hl-lhc
+claude-haiku,LBNF,p5-2014-lbnf
+claude-haiku,PIP-II,p5-2014-pip-ii
+claude-haiku,ILC,p5-2014-ilc
+claude-haiku,LSST,p5-2014-lsst
+claude-haiku,DESI,p5-2014-desi
+claude-haiku,DM G2,p5-2014-dm-g2
+claude-haiku,DM G3,p5-2014-dm-g3
+claude-haiku,CMB-S4,p5-2014-cmb-s4
+claude-haiku,CTA,p5-2014-cta
+claude-haiku,PINGU,p5-2014-pingu
+claude-haiku,Short Baseline Neutrino Portfolio,p5-2014-sbn
+claude-haiku,NuSTORM,p5-2014-nustorm
+claude-haiku,RADAR,p5-2014-radar
+claude-haiku,CHIPS,p5-2014-chips
+claude-haiku,ORKA,p5-2014-orka
+claude-haiku,MAP,p5-2014-map
+claude-haiku,LAr1,p5-2014-lar1

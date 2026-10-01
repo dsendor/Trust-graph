@@ -1,0 +1,28 @@
+bet_id,source_excerpt
+p5-2014-mu2e,"Table 1 (p. 17), raw text, columns A B C: Large Projects | Muon program: Mu2e, Muon g-2 Y, Y Y [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-muon-g-2,"Table 1 (p. 17), raw text, columns A B C: Large Projects | Muon program: Mu2e, Muon g-2 Y, Y Y [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-hl-lhc,"Table 1 (p. 17), raw text, columns A B C: Large Projects | HL-LHC Y Y Y"
+p5-2014-lbnf,"Table 1 (p. 17), raw text, columns A B C: Large Projects | LBNF + PIP-II Y, Y Y, enhanced [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-pip-ii,"Table 1 (p. 17), raw text, columns A B C: Large Projects | LBNF + PIP-II Y, Y Y, enhanced [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-ilc,"Table 1 (p. 17), raw text, columns A B C: Large Projects | ILC R&D only R&D, Y [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-nustorm,"Table 1 (p. 17), raw text, columns A B C: Large Projects | NuSTORM N N N"
+p5-2014-radar,"Table 1 (p. 17), raw text, columns A B C: Large Projects | RADAR N N N"
+p5-2014-lsst,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | LSST Y Y Y"
+p5-2014-dm-g2,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | DM G2 Y Y Y"
+p5-2014-small-projects-portfolio,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | Small Projects Portfolio Y Y Y"
+p5-2014-accel-rd,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | Accelerator R&D and Test Facilities Y, reduced Y, Y, enhanced [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-cmb-s4,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | CMB-S4 Y Y Y"
+p5-2014-dm-g3,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | DM G3 Y, reduced Y Y [Table 1 cell notes, placement lost in PDF text: 'LBNF components delayed relative to Scenario B.' / 'possibly small hardware contributions. See text.' / 'some reductions with redirection to PIP-II development' / 'Mu2e small reprofile needed']"
+p5-2014-pingu,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | PINGU Further development of concept encouraged"
+p5-2014-orka,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | ORKA N N N"
+p5-2014-map,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | MAP N N N"
+p5-2014-chips,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | CHIPS N N N"
+p5-2014-lar1,"Table 1 (p. 17), raw text, columns A B C: Medium Projects | LAr1 N N N"
+p5-2014-desi,"Table 1 (p. 17), raw text, columns A B C: Additional Small Projects | DESI N Y Y"
+p5-2014-sbn,"Table 1 (p. 17), raw text, columns A B C: Additional Small Projects | Short Baseline Neutrino Portfolio Y Y Y"
+p5-2014-lhc-phase-1,Not in Table 1. Figure 1 caption (p. 18): 'The LHC: Phase 1 upgrade is a Medium project'. Recommendation 10
+p5-2014-mice,Not in Table 1. Recommendation 25 and executive summary
+p5-2014-cta,Not in Table 1. Recommendation 21
+p5-2014-water-cherenkov,Not in Table 1. p. 19 text on Scenario C
+p5-2014-project-x,Not in Table 1. Text only (predecessor of PIP-II)
+p5-2014-lbne,Not in Table 1. Text only (predecessor of LBNF)

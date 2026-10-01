@@ -1,0 +1,25 @@
+model,project,bet_id
+claude-sonnet,WFIRST,astro2010-wfirst
+claude-sonnet,Explorer Program,astro2010-explorer
+claude-sonnet,LISA,astro2010-lisa
+claude-sonnet,IXO,astro2010-ixo
+claude-sonnet,New Worlds Technology Development Program,astro2010-new-worlds-tech
+claude-sonnet,Inflation Probe Technology Development Program,astro2010-inflation-probe-tech
+claude-sonnet,LSST,astro2010-lsst
+claude-sonnet,Mid-Scale Innovations Program,astro2010-msip
+claude-sonnet,GSMT,astro2010-gsmt
+claude-sonnet,ACTA,astro2010-acta
+claude-sonnet,CCAT,astro2010-ccat
+claude-sonnet,SPICA,astro2010-spica
+claude-haiku,SPICA,astro2010-spica
+claude-haiku,CCAT,astro2010-ccat
+claude-haiku,LSST,astro2010-lsst
+claude-haiku,Mid-Scale Innovations Program,astro2010-msip
+claude-haiku,GSMT,astro2010-gsmt
+claude-haiku,ACTA,astro2010-acta
+claude-haiku,New Worlds Technology Development Program,astro2010-new-worlds-tech
+claude-haiku,Inflation Probe Technology Development Program,astro2010-inflation-probe-tech
+claude-haiku,WFIRST,astro2010-wfirst
+claude-haiku,Explorer Program,astro2010-explorer
+claude-haiku,LISA,astro2010-lisa
+claude-haiku,IXO,astro2010-ixo
