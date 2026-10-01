@@ -43,7 +43,10 @@ anything and loads into SQLite or Notion later without a decision today.
 ## `data/actors.csv`: whose call it was (Weekend 3)
 
 `actor_id`, `name`, `type` (`person`, `committee`, `agency`), `bet_id`, `role_at_bet`,
-`source_url`. Named people stay internal (CLAUDE.md rule 7).
+`source_url`, `confidence`, `rationale`. One row per actor per bet per role; a committee
+member appears once with `bet_id` blank and the committee row links the committee to each
+bet. Roles are as of the ranking unless prefixed `later project leader:` with a year.
+Named people stay internal (CLAUDE.md rule 7): the website build strips `person` rows.
 
 ## Model extractions
 
