@@ -97,6 +97,15 @@ scores at committee and agency level.
   five of six finished P5 bets inside the report's own window. The misses are the two
   largest, LBNF and PIP-II, whose first baselines came three to four years after ranking.
 
+## Borderline calls
+
+Five cells sit on a scoring line and are marked `guess` with both readings in the
+rationale, since nobody on the project can rule on them: Rubin's cost-schedule (`no` by the
+five-year rule, `partial` if commissioning-camera first light counts), ACTA's (`no` on US
+terms, `building` for CTAO as a whole), LAr1's (`no` against the proposal's 2018 plan,
+`partial` against the P5 window), Mu2e's (1.15x and a five-year slip, exactly on two lines),
+and CMB-S4's science question (`no`, or `partial` if the 2015 BICEP2 refutation counts).
+
 ## What the ledger does not yet say
 
 Five P5 projects are still inside their 15-year window, so their category is blank.
