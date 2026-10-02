@@ -26,6 +26,18 @@ Weekend 1 merged.
 **Not in scope until David says so:** the trust graph build (schema, code, trust math),
 publishing anything, emailing anyone, making the repo public.
 
+## Status, 2026-10-02 (round 2)
+
+David's rulings: he does not have the knowledge to settle the five borderline calls, so
+they stay as scored, marked `guess`, with both readings in the rationale and a
+"Borderline calls" section in the scorecard. CLAUDE.md now points at the scorecard and the
+site. The `science` and attribution questions were then extended to every built or
+building bet: 25 `science` rows (5 answered, 2 of them surprises; 4 partly; 3 no; 13 too
+early) and 292 actor rows covering all 24 of those bets. Round-2 research notes:
+`research-log/outcomes/science-round2-*.md` and `actors-round2-*.md`. Rescore when SBND
+publishes its joint sterile-neutrino result, when DESI's five-year result lands (2027),
+and when JUNO reports on the mass ordering.
+
 ## Status, 2026-10-01 (after the scorecard session)
 
 All four "done" items above are in: 24 `cost-schedule` outcomes, 5 `science` outcomes,
