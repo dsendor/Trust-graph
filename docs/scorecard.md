@@ -76,7 +76,17 @@ Five bets on three named questions, scored against the promise as written.
 
 One of five answered, and it answered a question the report did not ask. Three cannot be
 scored before 2028 to 2034: time to an answer runs longer than time to build. One was
-cancelled before it could try. Both reports sold the dark energy bets on "why is the
+cancelled before it could try.
+
+**The other 20 built or building bets, scored briefly** (all 25 are in `data/outcomes.csv`):
+3 answered (the Explorer top-up, the LHC Phase-1 upgrades, MICE), 2 answered with a surprise
+(DESI above, and Muon g-2, which delivered its 127 parts-per-billion measurement while the
+theory it was built to test moved and the discrepancy dissolved), 4 partly (the dark matter
+G2 searches reached their sensitivity and found nothing; the short-baseline program ruled
+out the simplest sterile-neutrino story but its decisive two-detector test is unpublished;
+the exoplanet and mid-scale lines delivered their precursors), 3 no (Inflation Probe
+technology and CMB-S4 waiting on a signal that has not appeared, CHIPS never took data),
+and 13 not yet. Across all 25: 5 answered, 4 partly, 3 no, 13 too early. Both reports sold the dark energy bets on "why is the
 expansion accelerating"; the first data on that question came from the smallest of the
 three (DESI, under 60 million dollars), and the two flagships are now cast as its check.
 
