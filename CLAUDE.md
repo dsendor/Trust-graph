@@ -44,6 +44,8 @@ python3 scripts/fill_agency.py <agency-records>.csv   # fill agencies the report
 | Ledger vs trust graph, and why ledger first | `docs/trust-graph-or-ledger.md` |
 | Columns, allowed values, outcome categories | `docs/ledger-schema.md` |
 | **What is left, the goal, and what the files do not say** | **`docs/handoff.md`, read first** |
+| The one-page scorecard, and the script that prints its numbers | `docs/scorecard.md`, `scripts/scorecard_stats.py` |
+| The website: build from the CSVs, plain-English copy, narrative | `site/README.md`, `python3 scripts/build_site.py` |
 | Weekend 1 record and the pipeline steps | `docs/weekend-1.md` |
 | Source documents and what they do and do not cover | `sources/README.md` |
 | Two-model extraction, and how conflicts are settled (Opus decides) | `research-log/hand-check/README.md` |
