@@ -157,6 +157,9 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 #ledger td .srcline { font-size: 0.8rem; display: block; margin-top: 3px; }
 #ledger td.name { min-width: 220px; }
 #ledger { min-width: 980px; }
+table.sci { min-width: 820px; }
+table.sci td .what, table.sci td .srcline { display: block; font-size: 0.82rem; margin-top: 3px; }
+table.sci td .what { color: var(--ink-2); }
 .callout { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--surface); border-radius: 0 6px 6px 0; color: var(--ink-2); font-size: 0.97rem; }
 .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px 24px; font-size: 0.93rem; }
 .glossary div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -241,6 +244,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     </div>
     <div class="cases" id="cases"></div>
     <div class="col" id="q3-after"></div>
+    <div class="band" id="sci-others"></div>
   </div>
 </section>
 
@@ -357,7 +361,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     { v: (builtCounts.yes || 0) + (builtCounts.partial || 0), l: 'built or partly built', s: `${builtCounts.building || 0} still being built, ${(builtCounts.no || 0) + (builtCounts.cancelled || 0)} never` },
     { v: `${over} of ${withRatio.length}`, l: 'finished bets cost over 15% more than first estimated', s: 'by the report or the first agency baseline' },
     { v: median(lags) != null ? `${median(lags)} yr` : 'n/a', l: 'median wait from ranking to first data', s: `${arrived.length} bets that have taken first data` },
-    { v: `${sciAnswered} of ${sci.length}`, l: 'science questions answered so far', s: 'of the five scored in depth' },
+    { v: `${sciAnswered} of ${sci.length}`, l: 'science questions answered so far', s: `${sci.length} built or building bets scored; five in depth` },
   ];
   el('scoreboard').innerHTML = tiles.map(t => `<div class="tile"><span class="v">${esc(t.v)}</span><span class="l">${esc(t.l)}</span><span class="s">${esc(t.s)}</span></div>`).join('');
 
@@ -517,6 +521,16 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     }).join('');
   })();
   el('q3-after').innerHTML = F.q3.after;
+  (function others() {
+    const items = rows.filter(r => r.science && !F.q3.order.includes(r.bet_id || r.bet.bet_id)).sort((a, b) => a.bet.source_report.localeCompare(b.bet.source_report) || a.name.localeCompare(b.name));
+    if (!items.length) { el('sci-others').hidden = true; return; }
+    const lab = res => res === 'yes' ? 'Answered' : res === 'surprise' ? 'Answered, with a surprise' : res === 'partial' ? 'Partly answered' : res === 'no' ? 'Not answered' : 'Not answered yet';
+    const counts = {}; items.forEach(r => { counts[r.science.result] = (counts[r.science.result] || 0) + 1; });
+    el('sci-others').innerHTML = `<div class="title"><h3>The other ${items.length} built or building bets, scored briefly</h3><span class="note">${Object.entries(counts).map(([k, v]) => `${v} ${lab(k).toLowerCase()}`).join(' · ')}</span></div>
+      <div class="scroller"><table class="sci"><tr><th>Bet</th><th>Question it was sold on</th><th>Result</th><th>What happened</th></tr>
+      ${items.map(r => { const s = r.science; const u = String(s.source_url || '').split(/\s+/).filter(Boolean); return `<tr><td class="name"><b>${esc(r.name)}</b><span class="what">${esc(REPORT[r.bet.source_report])}</span></td><td>${esc(r.copy.question_plain)}</td><td><span class="chip ${esc(s.result)}"><i></i>${esc(lab(s.result))}</span><br><span class="chip conf ${esc(s.confidence)}">${s.confidence === 'guess' ? 'guess' : 'confident'}</span></td><td>${esc(s.rationale)}${u.map(x => `<a class="srcline" href="${esc(x)}" target="_blank" rel="noopener">${esc(x.replace(/^https?:\/\//, '').slice(0, 60))}</a>`).join('')}</td></tr>`; }).join('')}
+      </table></div>`;
+  })();
 
   // ---- Q4: attribution ----
   el('q4-text').innerHTML = F.q4.text;
