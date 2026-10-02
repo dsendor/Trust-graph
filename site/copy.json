@@ -1,0 +1,170 @@
+{
+  "_about": "Plain-English layer for the website. Keyed by bet_id. Written for a reader new to physics. Everything here is explanation of rows in data/bets.csv; the judgments and sources live in the CSVs, not here.",
+  "bets": {
+    "astro2010-wfirst": {
+      "plain_name": "WFIRST, now the Roman Space Telescope",
+      "what": "A space telescope with a very wide field of view, built to survey huge patches of the sky in infrared light.",
+      "question_plain": "Why is the expansion of the universe speeding up, and how common are Earth-like planets?"
+    },
+    "astro2010-lsst": {
+      "plain_name": "LSST, now the Rubin Observatory",
+      "what": "A ground telescope in Chile that photographs the whole southern sky every few nights for ten years, producing a time-lapse movie of the universe.",
+      "question_plain": "Why is the expansion of the universe speeding up? Also, what changes in the night sky from night to night?"
+    },
+    "astro2010-explorer": {
+      "plain_name": "Explorer program top-up",
+      "what": "Not one telescope but a funding line: extra money so NASA could launch more small, fast, competitively chosen missions during the decade.",
+      "question_plain": "Can a steady stream of small missions respond quickly to new discoveries?"
+    },
+    "astro2010-lisa": {
+      "plain_name": "LISA",
+      "what": "Three spacecraft flying millions of kilometres apart, measuring tiny ripples in space itself (gravitational waves) from colliding giant black holes.",
+      "question_plain": "Can we hear giant black holes merging, and does Einstein's theory of gravity hold up in that extreme regime?"
+    },
+    "astro2010-ixo": {
+      "plain_name": "IXO",
+      "what": "A large X-ray space observatory, planned with Europe and Japan, to see hot gas and black holes.",
+      "question_plain": "How did the first giant black holes grow, and how does hot gas move through galaxies?"
+    },
+    "astro2010-msip": {
+      "plain_name": "Mid-Scale Innovations Program",
+      "what": "A funding line at the National Science Foundation for medium-sized telescope and instrument projects, too big for small grants and too small for flagship budgets.",
+      "question_plain": "Can a competitive mid-size funding line keep ground-based astronomy innovating between flagships?"
+    },
+    "astro2010-gsmt": {
+      "plain_name": "Giant Segmented Mirror Telescope",
+      "what": "A US share in one of two planned giant ground telescopes with mirrors 25 to 30 metres across (the Giant Magellan Telescope or the Thirty Meter Telescope).",
+      "question_plain": "What were the earliest galaxies made of, and can we directly photograph planets around other stars?"
+    },
+    "astro2010-acta": {
+      "plain_name": "ACTA, a US share of CTA",
+      "what": "A US role in a large array of telescopes that detect the faint blue flashes made when very high-energy gamma rays hit the atmosphere.",
+      "question_plain": "Is dark matter made of particles that annihilate and give off gamma rays?"
+    },
+    "astro2010-ccat": {
+      "plain_name": "CCAT",
+      "what": "A submillimetre-wave telescope on a high peak in Chile to survey dusty galaxies and star-forming clouds.",
+      "question_plain": "Where and how did galaxies, stars, and planets form, as seen through cosmic dust?"
+    },
+    "astro2010-new-worlds-tech": {
+      "plain_name": "New Worlds technology program",
+      "what": "Technology development, not a mission: the instruments needed to one day photograph an Earth-like planet around another star.",
+      "question_plain": "What fraction of nearby stars have Earth-like planets, and can we build the tools to image them?"
+    },
+    "astro2010-inflation-probe-tech": {
+      "plain_name": "Inflation Probe technology program",
+      "what": "Technology development for detectors that could find a faint twist in the oldest light in the universe, a predicted fingerprint of the Big Bang's first instant.",
+      "question_plain": "Did the universe undergo a burst of faster-than-light expansion (inflation) in its first fraction of a second?"
+    },
+    "astro2010-spica": {
+      "plain_name": "SPICA",
+      "what": "A Japanese-led cooled infrared space telescope that the US was invited to join as a small partner.",
+      "question_plain": "How do galaxies, stars, and planets form, as seen in the far infrared?"
+    },
+    "p5-2014-hl-lhc": {
+      "plain_name": "High-Luminosity LHC",
+      "what": "A major upgrade to the Large Hadron Collider in Geneva so it can smash protons together far more often, with the US building magnets and detector parts.",
+      "question_plain": "Does the Higgs boson behave exactly as the standard theory predicts, and are there new particles or dark matter hiding at higher energies?"
+    },
+    "p5-2014-lbnf": {
+      "plain_name": "LBNF/DUNE",
+      "what": "A beam of neutrinos (ghostly particles that barely interact with matter) fired 1,300 km from Chicago to a giant detector a mile underground in South Dakota.",
+      "question_plain": "Do neutrinos and antineutrinos behave differently, which could explain why the universe is made of matter? And which neutrino is heaviest?"
+    },
+    "p5-2014-pip-ii": {
+      "plain_name": "PIP-II",
+      "what": "A new accelerator at Fermilab to make a much more intense proton beam, the source of neutrinos for DUNE.",
+      "question_plain": "Can the US produce the world's most intense neutrino beam?"
+    },
+    "p5-2014-mu2e": {
+      "plain_name": "Mu2e",
+      "what": "An experiment at Fermilab looking for a muon (a heavy cousin of the electron) turning directly into an electron, which the standard theory says essentially never happens.",
+      "question_plain": "Is there physics beyond the standard theory that lets a muon become an electron?"
+    },
+    "p5-2014-muon-g-2": {
+      "plain_name": "Muon g-2",
+      "what": "A precision measurement of how a muon wobbles in a magnetic field, compared with theory to extraordinary precision.",
+      "question_plain": "Does the muon's magnetic wobble differ from prediction, hinting at unknown particles?"
+    },
+    "p5-2014-lhc-phase-1": {
+      "plain_name": "LHC Phase-1 upgrades",
+      "what": "Intermediate upgrades to the ATLAS and CMS detectors at the LHC to keep them working at higher collision rates before the big upgrade.",
+      "question_plain": "Can the detectors keep up with the LHC and keep searching for new particles?"
+    },
+    "p5-2014-ilc": {
+      "plain_name": "International Linear Collider",
+      "what": "A proposed 20 km electron-positron collider in Japan that would study the Higgs boson in clean collisions. The US was to join only if Japan built it.",
+      "question_plain": "Does the Higgs boson couple to other particles exactly as predicted?"
+    },
+    "p5-2014-desi": {
+      "plain_name": "DESI",
+      "what": "An instrument with 5,000 robotic fibre positioners on a telescope in Arizona, measuring distances to tens of millions of galaxies to map the expansion history of the universe.",
+      "question_plain": "Is dark energy, the thing pushing the universe apart, constant over time or changing?"
+    },
+    "p5-2014-lsst": {
+      "plain_name": "LSST camera and survey (P5 side)",
+      "what": "The Department of Energy's part of the Rubin Observatory: its 3,200-megapixel camera and the dark energy analysis.",
+      "question_plain": "Can measuring billions of galaxy shapes pin down dark energy to one percent?"
+    },
+    "p5-2014-dm-g2": {
+      "plain_name": "Second-generation dark matter searches",
+      "what": "Three underground or shielded experiments (LZ, SuperCDMS, ADMX) waiting for a dark matter particle to bump into ordinary matter.",
+      "question_plain": "Is dark matter made of heavy particles (WIMPs) or very light ones (axions) that we can catch directly?"
+    },
+    "p5-2014-dm-g3": {
+      "plain_name": "Third-generation dark matter search",
+      "what": "A follow-on, much larger dark matter detector, planned to be built once the second generation reported.",
+      "question_plain": "Can we push the search for dark matter all the way to the floor set by neutrinos?"
+    },
+    "p5-2014-cmb-s4": {
+      "plain_name": "CMB-S4",
+      "what": "A planned array of telescopes at the South Pole and in Chile with half a million detectors, mapping the afterglow of the Big Bang.",
+      "question_plain": "Did the universe begin with a burst of inflation? Its gravitational waves would leave a swirl pattern in the oldest light."
+    },
+    "p5-2014-sbn": {
+      "plain_name": "Short-Baseline Neutrino program",
+      "what": "Three liquid-argon detectors in a row along a neutrino beam at Fermilab, looking for a fourth kind of neutrino.",
+      "question_plain": "Is there a fourth, 'sterile' neutrino, as some earlier experiments hinted?"
+    },
+    "p5-2014-pingu": {
+      "plain_name": "PINGU",
+      "what": "A proposed denser cluster of sensors inside the IceCube detector in Antarctic ice, to study low-energy neutrinos.",
+      "question_plain": "Which neutrino is heaviest, as read from neutrinos made in the atmosphere?"
+    },
+    "p5-2014-lar1": {
+      "plain_name": "LAr1",
+      "what": "A proposed mid-sized liquid-argon detector to chase hints of a fourth neutrino. Its near detector became SBND.",
+      "question_plain": "Is there a fourth, 'sterile' neutrino?"
+    },
+    "p5-2014-chips": {
+      "plain_name": "CHIPS",
+      "what": "A cheap water-tank detector sunk in a flooded mine pit in Minnesota, in the path of an existing neutrino beam.",
+      "question_plain": "Can a very cheap detector add a little to what we know about neutrino masses?"
+    },
+    "p5-2014-mice": {
+      "plain_name": "MICE",
+      "what": "A UK-based experiment demonstrating a way to squeeze a beam of muons, a step toward a future muon collider.",
+      "question_plain": "Can muon beams be cooled enough to build a collider out of them?"
+    },
+    "p5-2014-nustorm": {
+      "plain_name": "nuSTORM",
+      "what": "A proposed ring to store muons and use their decays as a precisely known neutrino source.",
+      "question_plain": "Is there a fourth neutrino, tested with a neutrino source whose output is known exactly?"
+    },
+    "p5-2014-orka": {
+      "plain_name": "ORKA",
+      "what": "A proposed experiment to measure an extremely rare decay of kaons (particles containing a strange quark).",
+      "question_plain": "Does a rare kaon decay happen at the rate the standard theory predicts?"
+    },
+    "p5-2014-radar": {
+      "plain_name": "RADAR",
+      "what": "A proposed liquid-argon detector at the far end of an existing neutrino beam in Minnesota.",
+      "question_plain": "Can an existing beam sharpen our knowledge of how neutrinos change type?"
+    },
+    "p5-2014-cta": {
+      "plain_name": "CTA (US share)",
+      "what": "A US contribution to the international Cherenkov Telescope Array, which watches for gamma rays from space.",
+      "question_plain": "Is dark matter annihilating in the centre of our galaxy and giving off gamma rays?"
+    }
+  }
+}

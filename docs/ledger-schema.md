@@ -32,10 +32,10 @@ anything and loads into SQLite or Notion later without a decision today.
 |---|---|
 | `bet_id` | Joins to `bets.csv` |
 | `question` | `built`, `cost-schedule`, `science`, `attribution` (the four ledger questions) |
-| `result` | `yes`, `no`, `partial`, `surprise`, `building`, `cancelled` |
+| `result` | `yes`, `no`, `partial`, `surprise`, `building`, `cancelled`. For `cost-schedule`: `yes` means within 15% of the first baseline and first data inside the target window; `partial` means over by up to 2x or late by up to 5 years; `no` means worse than that; `building` means no final cost or first data yet. For `science`: `building` means the facility exists or is coming but has not yet produced a result on the question |
 | `pt_category` | Pan and Trimble's five outcome categories (their Section 2.3), for comparability: `1` in operation within 15 years, mostly federal; `2` within 15 years, mostly other funding; `3` eventually built, mostly federal; `4` eventually built, mostly other funding; `5` never or very unlikely. Their "about a third each" groups 1, 2 to 4, and 5 |
 | `as_of` | Date the result was true |
-| `value` | The number or date, when there is one (final cost, first-data date) |
+| `value` | The number or date, when there is one (final cost, first-data date). For `cost-schedule` a `key=value; key=value` string with `cost_at_ranking`, `cost_latest`, `ratio`, `target`, `first_data`, each number labelled with its basis in parentheses ($M, then-year unless stated) |
 | `source_url` | Required. A search snippet is not a source |
 | `confidence` | `confident` or `guess` |
 | `rationale` | One line |
@@ -43,7 +43,10 @@ anything and loads into SQLite or Notion later without a decision today.
 ## `data/actors.csv`: whose call it was (Weekend 3)
 
 `actor_id`, `name`, `type` (`person`, `committee`, `agency`), `bet_id`, `role_at_bet`,
-`source_url`. Named people stay internal (CLAUDE.md rule 7).
+`source_url`, `confidence`, `rationale`. One row per actor per bet per role; a committee
+member appears once with `bet_id` blank and the committee row links the committee to each
+bet. Roles are as of the ranking unless prefixed `later project leader:` with a year.
+Named people stay internal (CLAUDE.md rule 7): the website build strips `person` rows.
 
 ## Model extractions
 

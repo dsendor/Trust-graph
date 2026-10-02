@@ -1,0 +1,570 @@
+<title>The Promise Ledger</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (68ch) with full-bleed chart bands; a sticky question nav on top. */
+:root {
+  --bg: #f5f6f8;          /* cool off-white ground */
+  --surface: #ffffff;     /* cards and chart surfaces */
+  --ink: #15191e;         /* primary text */
+  --ink-2: #4a525c;       /* secondary text */
+  --ink-3: #7b838d;       /* muted labels, axes */
+  --rule: #d9dde3;        /* hairlines */
+  --grid: #e7eaee;        /* chart gridlines */
+  --accent: #1f4fd8;      /* cobalt: links, emphasis, "building" */
+  --accent-soft: #e3e9fb;
+  --good: #0f8a3c;        /* built, answered */
+  --good-soft: #e1f3e7;
+  --warn: #b7700a;        /* partial */
+  --warn-soft: #fbecd2;
+  --bad: #c4322f;         /* cancelled, no */
+  --bad-soft: #f9e1e0;
+  --dead: #6b7280;        /* never happened */
+  --dead-soft: #e8eaee;
+  --surprise: #7a3fb3;    /* answered differently than expected */
+  --surprise-soft: #ece1f7;
+  --display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216; --surface: #171b21; --ink: #eef1f4; --ink-2: #b9c0c9; --ink-3: #868e99;
+    --rule: #2b323b; --grid: #232930; --accent: #7aa2ff; --accent-soft: #1d2a4d;
+    --good: #4ccb7a; --good-soft: #15321f; --warn: #e5a53a; --warn-soft: #3a2a10;
+    --bad: #f07a76; --bad-soft: #40201f; --dead: #a0a7b1; --dead-soft: #262b33;
+    --surprise: #c49bf0; --surprise-soft: #2d1f42; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1216; --surface: #171b21; --ink: #eef1f4; --ink-2: #b9c0c9; --ink-3: #868e99;
+  --rule: #2b323b; --grid: #232930; --accent: #7aa2ff; --accent-soft: #1d2a4d;
+  --good: #4ccb7a; --good-soft: #15321f; --warn: #e5a53a; --warn-soft: #3a2a10;
+  --bad: #f07a76; --bad-soft: #40201f; --dead: #a0a7b1; --dead-soft: #262b33;
+  --surprise: #c49bf0; --surprise-soft: #2d1f42; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; margin: 0; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+.col { max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.lede { font-size: 1.2rem; color: var(--ink-2); max-width: 60ch; }
+.muted { color: var(--ink-2); }
+.small { font-size: 0.9rem; }
+.mono { font-family: var(--mono); }
+.num { font-variant-numeric: tabular-nums; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.stack-lg { display: flex; flex-direction: column; gap: 2rem; }
+
+/* header */
+header.top { padding-block: 3.5rem 2.5rem; border-bottom: 1px solid var(--rule); }
+header.top .wrap { display: flex; flex-direction: column; gap: 1.4rem; }
+.scoreboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 0.5rem; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tile .v { font-size: 2.1rem; font-weight: 600; line-height: 1.05; }
+.tile .l { font-size: 0.86rem; color: var(--ink-2); }
+.tile .s { font-size: 0.78rem; color: var(--ink-3); }
+
+/* nav */
+nav.qnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); }
+nav.qnav .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
+nav.qnav a { white-space: nowrap; text-decoration: none; color: var(--ink-2); font-size: 0.88rem; padding: 6px 10px; border-radius: 999px; }
+nav.qnav a:hover { background: var(--accent-soft); color: var(--ink); }
+nav.qnav a.q { font-weight: 600; color: var(--ink); }
+
+/* sections */
+section.part { padding-block: 3.5rem; border-bottom: 1px solid var(--rule); }
+section.part > .wrap { display: flex; flex-direction: column; gap: 1.6rem; }
+.qnum { font-family: var(--mono); color: var(--accent); font-size: 0.9rem; margin-bottom: 0.4rem; }
+
+/* primer cards */
+.primer { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.primer .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.primer .card h3 { font-size: 1.05rem; font-family: var(--body); font-weight: 600; }
+.primer .card p { font-size: 0.95rem; color: var(--ink-2); }
+
+/* chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; padding: 2px 9px 2px 7px; border-radius: 999px; white-space: nowrap; line-height: 1.5; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; display: inline-block; }
+.chip.yes, .chip.answered { color: var(--good); background: var(--good-soft); }
+.chip.partial { color: var(--warn); background: var(--warn-soft); }
+.chip.building { color: var(--accent); background: var(--accent-soft); }
+.chip.no { color: var(--dead); background: var(--dead-soft); }
+.chip.cancelled { color: var(--bad); background: var(--bad-soft); }
+.chip.surprise { color: var(--surprise); background: var(--surprise-soft); }
+.chip.conf { color: var(--ink-2); background: var(--dead-soft); font-weight: 500; }
+.chip.conf.guess { color: var(--warn); background: var(--warn-soft); }
+
+/* chart band */
+.band { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.band .title { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.band .title h3 { font-family: var(--body); font-size: 1.05rem; font-weight: 600; }
+.band .note { font-size: 0.86rem; color: var(--ink-3); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.plot { overflow-x: auto; }
+svg.chart { width: 100%; min-width: 760px; height: auto; display: block; font-family: var(--body); }
+svg.chart text { fill: var(--ink-2); font-size: 12px; }
+svg.chart .axis text { fill: var(--ink-3); font-size: 11px; font-family: var(--mono); }
+svg.chart .grid { stroke: var(--grid); stroke-width: 1; }
+svg.chart .base { stroke: var(--ink-3); stroke-width: 1; }
+svg.chart .lbl { fill: var(--ink); font-size: 12px; }
+svg.chart .val { fill: var(--ink-2); font-family: var(--mono); font-size: 11px; }
+svg.chart .hit { fill: transparent; cursor: pointer; }
+svg.chart .hit:hover + .mark, svg.chart .hit:focus + .mark { opacity: 0.8; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.82rem; padding: 8px 10px; border-radius: 6px; max-width: 320px; z-index: 20; display: none; line-height: 1.4; }
+.tip b { display: block; margin-bottom: 2px; }
+details.tbl { font-size: 0.9rem; }
+details.tbl summary { cursor: pointer; color: var(--accent); }
+.scroller { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.85rem; }
+
+/* cases */
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.case { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.case .head { display: flex; flex-direction: column; gap: 6px; }
+.case h3 { font-size: 1.3rem; }
+.case .q { font-size: 1.02rem; font-weight: 500; }
+.case .verdict { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.case .story { color: var(--ink-2); font-size: 0.97rem; display: flex; flex-direction: column; gap: 8px; }
+.case .srcs { font-size: 0.84rem; color: var(--ink-3); display: flex; flex-direction: column; gap: 3px; }
+.case .srcs a { word-break: break-word; }
+.case .fact { font-family: var(--mono); font-size: 0.84rem; background: var(--bg); border: 1px solid var(--rule); border-radius: 4px; padding: 8px 10px; color: var(--ink-2); }
+
+/* attribution */
+.attr { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.attr .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.attr .card h3 { font-family: var(--body); font-size: 1.02rem; font-weight: 600; }
+.attr dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 0.9rem; margin: 0; }
+.attr dt { color: var(--ink-3); }
+.attr dd { margin: 0; }
+
+/* ledger table */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 0.9rem; }
+.filters label { display: inline-flex; align-items: center; gap: 6px; }
+.filters select, .filters input { font: inherit; font-size: 0.9rem; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink); }
+#ledger td .what { color: var(--ink-2); font-size: 0.85rem; display: block; margin-top: 2px; }
+#ledger td .srcline { font-size: 0.8rem; display: block; margin-top: 3px; }
+#ledger td.name { min-width: 220px; }
+#ledger { min-width: 980px; }
+.callout { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--surface); border-radius: 0 6px 6px 0; color: var(--ink-2); font-size: 0.97rem; }
+.glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px 24px; font-size: 0.93rem; }
+.glossary div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.glossary b { font-weight: 600; }
+footer { padding-block: 2.5rem 4rem; color: var(--ink-3); font-size: 0.86rem; }
+footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .band { padding: 14px; }
+  .case { padding: 16px; }
+  .attr dl { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip, .tile { transition: background-color 0.2s; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Promise ledger · Astro2010 and P5 2014 · scored as of <span id="asof"></span></div>
+    <h1>The Promise Ledger</h1>
+    <p class="lede" id="lede"></p>
+    <div class="scoreboard" id="scoreboard"></div>
+  </div>
+</header>
+
+<nav class="qnav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#start">Start here</a>
+    <a class="q" href="#q1">1 · Built?</a>
+    <a class="q" href="#q2">2 · Cost and time</a>
+    <a class="q" href="#q3">3 · Science question</a>
+    <a class="q" href="#q4">4 · Whose call</a>
+    <a href="#ledger-section">All 33 bets</a>
+    <a href="#method">Method</a>
+    <a href="#glossary">Glossary</a>
+  </div>
+</nav>
+
+<section class="part" id="start">
+  <div class="wrap">
+    <div class="col stack">
+      <h2>Start here, if you are new to this</h2>
+      <p>Every ten years or so, American astronomers and particle physicists each write a report that ranks what they want built next: telescopes, particle detectors, accelerators. Governments mostly follow the ranking. Each ranked item is a promise: build this, for roughly this much, by roughly this date, and it will answer a specific scientific question. This page checks those promises against what actually happened.</p>
+    </div>
+    <div class="primer" id="primer"></div>
+    <div class="col callout" id="confidence-note"></div>
+  </div>
+</section>
+
+<section class="part" id="q1">
+  <div class="wrap">
+    <div class="col stack">
+      <div class="qnum">Question 1 of 4</div>
+      <h2>Was it built?</h2>
+      <p id="q1-text"></p>
+    </div>
+    <div class="band" id="built-band"></div>
+    <div class="col" id="q1-after"></div>
+  </div>
+</section>
+
+<section class="part" id="q2">
+  <div class="wrap">
+    <div class="col stack">
+      <div class="qnum">Question 2 of 4</div>
+      <h2>What did it cost, and when did it arrive?</h2>
+      <p id="q2-text"></p>
+    </div>
+    <div class="band" id="cost-band"></div>
+    <div class="band" id="time-band"></div>
+    <div class="col" id="q2-after"></div>
+  </div>
+</section>
+
+<section class="part" id="q3">
+  <div class="wrap">
+    <div class="col stack">
+      <div class="qnum">Question 3 of 4</div>
+      <h2>Did it answer the question it was sold on?</h2>
+      <p id="q3-text"></p>
+    </div>
+    <div class="cases" id="cases"></div>
+    <div class="col" id="q3-after"></div>
+  </div>
+</section>
+
+<section class="part" id="q4">
+  <div class="wrap">
+    <div class="col stack">
+      <div class="qnum">Question 4 of 4</div>
+      <h2>Whose call was it?</h2>
+      <p id="q4-text"></p>
+    </div>
+    <div class="attr" id="attr"></div>
+    <div class="col" id="q4-after"></div>
+  </div>
+</section>
+
+<section class="part" id="ledger-section">
+  <div class="wrap">
+    <div class="col stack">
+      <h2>All 33 bets</h2>
+      <p class="muted">Every ranked item from both reports, with where it stands. Click a source to see the evidence behind each judgment.</p>
+    </div>
+    <div class="filters">
+      <label>Report <select id="f-report"><option value="">Both</option><option value="astro2010">Astro2010</option><option value="p5-2014">P5 2014</option></select></label>
+      <label>Built <select id="f-built"><option value="">Any</option><option value="yes">Yes</option><option value="partial">Partial</option><option value="building">Building</option><option value="no">No</option><option value="cancelled">Cancelled</option></select></label>
+      <label>Search <input id="f-q" type="search" placeholder="DESI, neutrino, dark energy"></label>
+      <span class="small muted" id="f-count"></span>
+    </div>
+    <div class="scroller"><table id="ledger"></table></div>
+  </div>
+</section>
+
+<section class="part" id="method">
+  <div class="wrap">
+    <div class="col stack-lg" id="method-body"></div>
+  </div>
+</section>
+
+<section class="part" id="glossary">
+  <div class="wrap">
+    <div class="col stack"><h2>Glossary</h2></div>
+    <div class="glossary" id="glossary-body"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Built from the ledger's three CSV files. Every judgment on this page carries a source link, a one-line rationale and a confidence label in the data.</div>
+    <div>Named people are kept out of this page by design; attribution is at committee and agency level.</div>
+  </div>
+</footer>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script id="ledger-data" type="application/json">__LEDGER_JSON__</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById('ledger-data').textContent);
+  const F = D.findings;
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const el = (id) => document.getElementById(id);
+  const REPORT = { 'astro2010': 'Astro2010', 'p5-2014': 'P5 2014' };
+  const RANK_YEAR = { 'astro2010': 2010, 'p5-2014': 2014 };
+  const LABEL = { yes: 'Built', partial: 'Partly built', building: 'Being built', no: 'Never built', cancelled: 'Cancelled', surprise: 'Answered, with a surprise', answered: 'Answered' };
+  const COLOR = { yes: 'var(--good)', partial: 'var(--warn)', building: 'var(--accent)', no: 'var(--dead)', cancelled: 'var(--bad)', surprise: 'var(--surprise)' };
+
+  // ---- join ----
+  const byBet = {};
+  for (const b of D.bets) byBet[b.bet_id] = { bet: b, copy: D.copy[b.bet_id] || {}, actors: [] };
+  for (const o of D.outcomes) if (byBet[o.bet_id]) byBet[o.bet_id][o.question] = o;
+  for (const a of D.actors) if (byBet[a.bet_id]) byBet[a.bet_id].actors.push(a);
+  const rows = Object.values(byBet);
+
+  function parseKV(s) {
+    const out = {};
+    for (const part of String(s || '').split(';')) {
+      const i = part.indexOf('=');
+      if (i < 0) continue;
+      out[part.slice(0, i).trim()] = part.slice(i + 1).trim();
+    }
+    return out;
+  }
+  const num = s => { const m = String(s || '').match(/-?\d+(\.\d+)?/); return m ? parseFloat(m[0]) : null; };
+  const yr = s => { const m = String(s || '').match(/(19|20)\d\d/); return m ? parseInt(m[0]) : null; };
+  const noParen = s => String(s || '').replace(/\([^)]*\)/g, '');
+  const yrEnd = s => { const m = noParen(s).match(/(19|20)\d\d/g); return m ? parseInt(m[m.length - 1]) : null; };
+  for (const r of rows) {
+    r.name = r.copy.plain_name || r.bet.project;
+    if (r['cost-schedule']) {
+      const kv = parseKV(r['cost-schedule'].value);
+      r.kv = kv;
+      r.program = ('delivered' in kv) || ('recommended' in kv);
+      r.ratio = num(kv.ratio);
+      r.firstData = yr(kv.first_data);
+      r.firstDataProjected = /projected|planned|expected/i.test((kv.first_data || '').slice(0, 45));
+      if (/^\s*(none|never|n\/a)/i.test(kv.first_data || '')) r.firstData = null;
+      r.targetStart = yr(noParen(kv.target || r.bet.target_date));
+      r.targetEnd = yrEnd(kv.target || r.bet.target_date);
+    }
+  }
+
+  // ---- hero ----
+  el('asof').textContent = F.as_of;
+  el('lede').textContent = F.lede;
+  const builtCounts = {};
+  for (const r of rows) { const k = r.built ? r.built.result : 'unknown'; builtCounts[k] = (builtCounts[k] || 0) + 1; }
+  const withRatio = rows.filter(r => r.ratio != null && !r.program && r['cost-schedule'].result !== 'building');
+  const over = withRatio.filter(r => r.ratio > 1.15).length;
+  const arrived = rows.filter(r => r.firstData && !r.firstDataProjected && !r.program);
+  const lags = arrived.map(r => r.firstData - RANK_YEAR[r.bet.source_report]).sort((a, b) => a - b);
+  const median = a => a.length ? (a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2) : null;
+  const sci = rows.filter(r => r.science);
+  const sciAnswered = sci.filter(r => ['yes', 'surprise', 'partial'].includes(r.science.result)).length;
+  const tiles = [
+    { v: rows.length, l: 'ranked bets scored', s: '12 from Astro2010, 21 from P5 2014' },
+    { v: (builtCounts.yes || 0) + (builtCounts.partial || 0), l: 'built or partly built', s: `${builtCounts.building || 0} still being built, ${(builtCounts.no || 0) + (builtCounts.cancelled || 0)} never` },
+    { v: `${over} of ${withRatio.length}`, l: 'finished bets cost over 15% more than first estimated', s: 'by the report or the first agency baseline' },
+    { v: median(lags) != null ? `${median(lags)} yr` : 'n/a', l: 'median wait from ranking to first data', s: `${arrived.length} bets that have taken first data` },
+    { v: `${sciAnswered} of ${sci.length}`, l: 'science questions answered so far', s: 'of the five scored in depth' },
+  ];
+  el('scoreboard').innerHTML = tiles.map(t => `<div class="tile"><span class="v">${esc(t.v)}</span><span class="l">${esc(t.l)}</span><span class="s">${esc(t.s)}</span></div>`).join('');
+
+  // ---- primer ----
+  el('primer').innerHTML = F.primer.map(c => `<div class="card"><h3>${esc(c.h)}</h3><p>${c.p}</p></div>`).join('');
+  el('confidence-note').innerHTML = F.confidence_note;
+
+  // ---- tooltip ----
+  const tip = el('tip');
+  function showTip(html, ev) { tip.innerHTML = html; tip.style.display = 'block'; moveTip(ev); }
+  function moveTip(ev) {
+    const x = Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    const y = Math.min(ev.clientY + 14, window.innerHeight - tip.offsetHeight - 8);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.style.display = 'none'; }
+  function bindTips(svg) {
+    svg.querySelectorAll('[data-tip]').forEach(n => {
+      n.addEventListener('mouseenter', e => showTip(n.dataset.tip, e));
+      n.addEventListener('mousemove', moveTip);
+      n.addEventListener('mouseleave', hideTip);
+      n.addEventListener('focus', e => { const b = n.getBoundingClientRect(); showTip(n.dataset.tip, { clientX: b.left, clientY: b.top }); });
+      n.addEventListener('blur', hideTip);
+      n.setAttribute('tabindex', '0');
+    });
+  }
+
+  // ---- Q1: built ----
+  el('q1-text').innerHTML = F.q1.text;
+  (function builtChart() {
+    const order = ['yes', 'partial', 'building', 'no', 'cancelled'];
+    const groups = [
+      { k: 'astro2010', label: 'Astro2010 (12 bets)' },
+      { k: 'p5-2014', label: 'P5 2014 (21 bets)' },
+      { k: 'all', label: 'Both reports (33)' },
+    ];
+    const W = 900, LW = 170, BH = 26, GAP = 18, PAD = 14, H = PAD * 2 + groups.length * (BH + GAP) + 30;
+    let g = '';
+    groups.forEach((grp, gi) => {
+      const sel = rows.filter(r => grp.k === 'all' || r.bet.source_report === grp.k);
+      const total = sel.length;
+      let x = LW;
+      const y = PAD + gi * (BH + GAP);
+      g += `<text class="lbl" x="0" y="${y + BH / 2 + 4}">${esc(grp.label)}</text>`;
+      order.forEach(k => {
+        const items = sel.filter(r => r.built && r.built.result === k);
+        if (!items.length) return;
+        const w = (W - LW) * items.length / total;
+        const names = items.map(r => r.name).join(', ');
+        g += `<rect data-tip="<b>${esc(LABEL[k])}: ${items.length} of ${total}</b>${esc(names)}" x="${x + 1}" y="${y}" width="${Math.max(w - 2, 1)}" height="${BH}" rx="3" fill="${COLOR[k]}"></rect>`;
+        if (w > 28) g += `<text x="${x + w / 2}" y="${y + BH / 2 + 4}" text-anchor="middle" style="fill:#fff;font-weight:600;font-size:12px">${items.length}</text>`;
+        x += w;
+      });
+    });
+    const legend = order.map(k => `<span><i style="background:${COLOR[k]}"></i>${esc(LABEL[k])}</span>`).join('');
+    el('built-band').innerHTML = `
+      <div class="title"><h3>Where each bet stands today</h3><span class="note">Share of bets, by outcome. Hover a segment for the names.</span></div>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Built status by report">${g}</svg></div>
+      <div class="legend">${legend}</div>
+      <details class="tbl"><summary>Table view</summary><div class="scroller"><table><tr><th>Report</th>${order.map(k => `<th class="num">${esc(LABEL[k])}</th>`).join('')}</tr>
+      ${groups.map(grp => { const sel = rows.filter(r => grp.k === 'all' || r.bet.source_report === grp.k); return `<tr><td>${esc(grp.label)}</td>${order.map(k => `<td class="num">${sel.filter(r => r.built && r.built.result === k).length}</td>`).join('')}</tr>`; }).join('')}
+      </table></div></details>`;
+    bindTips(el('built-band'));
+  })();
+  el('q1-after').innerHTML = F.q1.after;
+
+  // ---- Q2: cost ratio ----
+  el('q2-text').innerHTML = F.q2.text;
+  (function costChart() {
+    const items = rows.filter(r => r.ratio != null && !r.program).sort((a, b) => b.ratio - a.ratio);
+    const W = 900, LW = 250, RW = 70, RH = 22, PAD = 10, AX = 28;
+    const H = PAD + items.length * RH + AX + 10;
+    const maxR = Math.max(3, Math.ceil(Math.max(...items.map(r => r.ratio)) * 2) / 2);
+    const x0 = LW, x1 = W - RW;
+    const sx = v => x0 + (x1 - x0) * (v / maxR);
+    let g = '';
+    const ticks = []; for (let t = 0; t <= maxR; t += 0.5) ticks.push(t);
+    ticks.forEach(t => { g += `<line class="grid" x1="${sx(t)}" x2="${sx(t)}" y1="${PAD}" y2="${PAD + items.length * RH}"></line><text class="axis" x="${sx(t)}" y="${PAD + items.length * RH + 16}" text-anchor="middle">${t}x</text>`; });
+    g = g.replace(/class="grid" x1="(\S+)" x2="\S+" y1="\S+" y2="\S+"><\/line>(?=<text class="axis" x="\S+" y="\S+" text-anchor="middle">1x<)/, 'class="base" x1="$1" x2="$1" y1="' + PAD + '" y2="' + (PAD + items.length * RH) + '"></line>');
+    items.forEach((r, i) => {
+      const y = PAD + i * RH;
+      const building = r['cost-schedule'].result === 'building';
+      const col = r.ratio > 1.15 ? (r.ratio > 2 ? 'var(--bad)' : 'var(--warn)') : 'var(--good)';
+      const xa = sx(Math.min(1, r.ratio)), xb = sx(Math.max(1, r.ratio));
+      const kv = r.kv;
+      const tipHtml = `<b>${esc(r.name)} · ${r.ratio}x</b>First estimate: ${esc(kv.cost_at_ranking || '?')}<br>Latest: ${esc(kv.cost_latest || '?')}${building ? '<br>Still being built; ratio so far.' : ''}`;
+      g += `<text class="lbl" x="${LW - 10}" y="${y + RH / 2 + 4}" text-anchor="end">${esc(r.name)}${building ? ' *' : ''}</text>`;
+      g += `<rect class="hit" data-tip="${esc(tipHtml)}" x="0" y="${y}" width="${W}" height="${RH}"></rect>`;
+      g += `<rect class="mark" x="${xa}" y="${y + 5}" width="${Math.max(xb - xa, 2)}" height="${RH - 10}" rx="3" fill="${col}" ${building ? 'opacity="0.55"' : ''}></rect>`;
+      g += `<text class="val" x="${xb + 6}" y="${y + RH / 2 + 4}">${r.ratio.toFixed(2)}x</text>`;
+    });
+    el('cost-band').innerHTML = `
+      <div class="title"><h3>Cost today versus the first estimate</h3><span class="note">Ratio of latest cost to the first estimate. 1x means on budget. * still being built, so the ratio can move.</span></div>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cost ratio by bet">${g}</svg></div>
+      <div class="legend"><span><i style="background:var(--good)"></i>Within 15%</span><span><i style="background:var(--warn)"></i>Over, up to 2x</span><span><i style="background:var(--bad)"></i>More than 2x</span><span><i style="background:var(--accent);opacity:.55"></i>Faded: still being built</span></div>
+      <details class="tbl"><summary>Table view, with the basis of each number</summary><div class="scroller"><table><tr><th>Bet</th><th class="num">Ratio</th><th>First estimate</th><th>Latest</th><th>Status</th></tr>
+      ${items.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${r.ratio.toFixed(2)}</td><td>${esc(r.kv.cost_at_ranking || '')}</td><td>${esc(r.kv.cost_latest || '')}</td><td><span class="chip ${esc(r['cost-schedule'].result)}"><i></i>${esc(r['cost-schedule'].result)}</span></td></tr>`).join('')}
+      </table></div></details>`;
+    bindTips(el('cost-band'));
+  })();
+
+  // ---- Q2: timeline ----
+  (function timeChart() {
+    const items = rows.filter(r => r['cost-schedule'] && !r.program && (r.firstData || r.targetStart)).sort((a, b) => (a.firstData || 2040) - (b.firstData || 2040));
+    const W = 900, LW = 250, RH = 22, PAD = 10, AX = 28, RPAD = 30;
+    const H = PAD + items.length * RH + AX + 10;
+    const Y0 = 2009, Y1 = 2037;
+    const x0 = LW, x1 = W - RPAD;
+    const sx = y => x0 + (x1 - x0) * ((y - Y0) / (Y1 - Y0));
+    let g = '';
+    for (let y = 2010; y <= 2036; y += 2) g += `<line class="grid" x1="${sx(y)}" x2="${sx(y)}" y1="${PAD}" y2="${PAD + items.length * RH}"></line><text class="axis" x="${sx(y)}" y="${PAD + items.length * RH + 16}" text-anchor="middle">${y}</text>`;
+    const now = 2026.75;
+    g += `<line class="base" x1="${sx(now)}" x2="${sx(now)}" y1="${PAD}" y2="${PAD + items.length * RH}" stroke-dasharray="3 3"></line><text class="axis" x="${sx(now)}" y="${PAD - 1}" text-anchor="middle">today</text>`;
+    items.forEach((r, i) => {
+      const y = PAD + i * RH, cy = y + RH / 2;
+      const ry = RANK_YEAR[r.bet.source_report];
+      const kv = r.kv;
+      const tipHtml = `<b>${esc(r.name)}</b>Ranked ${ry}. Target: ${esc(kv.target || r.bet.target_date || 'none stated')}.<br>First data: ${esc(kv.first_data || 'none yet')}`;
+      g += `<text class="lbl" x="${LW - 10}" y="${cy + 4}" text-anchor="end">${esc(r.name)}</text>`;
+      g += `<rect class="hit" data-tip="${esc(tipHtml)}" x="0" y="${y}" width="${W}" height="${RH}"></rect>`;
+      if (r.targetStart) {
+        const te = r.targetEnd || r.targetStart;
+        g += `<rect class="mark" x="${sx(r.targetStart) - 3}" y="${cy - 7}" width="${Math.max(sx(te + 1) - sx(r.targetStart) + 3, 6)}" height="14" rx="3" fill="var(--grid)" stroke="var(--rule)"></rect>`;
+      }
+      if (r.firstData) {
+        g += `<line x1="${sx(ry)}" x2="${sx(r.firstData)}" y1="${cy}" y2="${cy}" stroke="var(--ink-3)" stroke-width="1.5" ${r.firstDataProjected ? 'stroke-dasharray="3 3"' : ''}></line>`;
+        g += `<circle cx="${sx(r.firstData)}" cy="${cy}" r="5" fill="${r.firstDataProjected ? 'var(--surface)' : 'var(--accent)'}" stroke="var(--accent)" stroke-width="2"></circle>`;
+      }
+      g += `<circle cx="${sx(ry)}" cy="${cy}" r="3.5" fill="var(--ink-3)"></circle>`;
+    });
+    el('time-band').innerHTML = `
+      <div class="title"><h3>From ranking to first data</h3><span class="note">Grey dot: the year it was ranked. Grey box: the date the report promised. Blue dot: first data (hollow if still projected).</span></div>
+      <div class="plot"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline from ranking to first data">${g}</svg></div>
+      <details class="tbl"><summary>Table view</summary><div class="scroller"><table><tr><th>Bet</th><th class="num">Ranked</th><th>Promised</th><th>First data</th><th class="num">Years</th></tr>
+      ${items.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${RANK_YEAR[r.bet.source_report]}</td><td>${esc(r.kv.target || r.bet.target_date || '')}</td><td>${esc(r.kv.first_data || '')}</td><td class="num">${r.firstData ? r.firstData - RANK_YEAR[r.bet.source_report] : ''}</td></tr>`).join('')}
+      </table></div></details>`;
+    bindTips(el('time-band'));
+  })();
+  el('q2-after').innerHTML = F.q2.after;
+
+  // ---- Q3: cases ----
+  el('q3-text').innerHTML = F.q3.text;
+  (function cases() {
+    const order = F.q3.order;
+    el('cases').innerHTML = order.map(id => {
+      const r = byBet[id]; const c = F.q3.cases[id] || {}; const s = r.science || {};
+      const res = s.result || 'building';
+      const chipLabel = res === 'yes' ? 'Answered' : res === 'surprise' ? 'Answered, with a surprise' : res === 'partial' ? 'Partly answered' : res === 'no' ? 'Not answered' : 'Not answered yet';
+      const srcs = String(s.source_url || '').split(/\s+/).filter(Boolean);
+      return `<article class="case">
+        <div class="head"><span class="eyebrow">${esc(REPORT[r.bet.source_report])} · ${esc(r.bet.science_driver.replace(/;/g, ', ').replace(/-/g, ' '))}</span><h3>${esc(r.name)}</h3><p class="q">${esc(r.copy.question_plain)}</p></div>
+        <div class="verdict"><span class="chip ${esc(res)}"><i></i>${esc(chipLabel)}</span><span class="chip conf ${esc(s.confidence || '')}">${s.confidence === 'guess' ? 'confidence: guess' : 'confidence: confident'}</span></div>
+        <div class="story">${c.story || ''}</div>
+        <details class="tbl"><summary>The numbers, as recorded in the ledger</summary><div class="stack" style="margin-top:8px">${s.value ? `<div class="fact">${esc(s.value)}</div>` : ''}<div class="srcs"><span>Ledger rationale: ${esc(s.rationale || '')}</span></div></div></details>
+        <div class="srcs">${srcs.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener">Source: ${esc(u.replace(/^https?:\/\//, '').slice(0, 70))}</a>`).join('')}</div>
+      </article>`;
+    }).join('');
+  })();
+  el('q3-after').innerHTML = F.q3.after;
+
+  // ---- Q4: attribution ----
+  el('q4-text').innerHTML = F.q4.text;
+  (function attr() {
+    el('attr').innerHTML = F.q3.order.map(id => {
+      const r = byBet[id];
+      const committee = r.actors.filter(a => a.type === 'committee');
+      const agencies = r.actors.filter(a => a.type === 'agency');
+      const b = r.built || {}; const cs = r['cost-schedule'] || {}; const s = r.science || {};
+      const score = (q, o, who) => o.result ? `<span class="chip ${esc(o.result)}"><i></i>${esc(o.result)}</span> <span class="muted small">${who}</span>` : '<span class="muted small">not scored (never built)</span>';
+      return `<div class="card"><h3>${esc(r.name)}</h3>
+        <dl>
+          <dt>Ranked by</dt><dd>${committee.length ? committee.map(a => esc(a.name) + (a.role_at_bet ? ` <span class="muted small">(${esc(a.role_at_bet)})</span>` : '')).join('<br>') : esc(REPORT[r.bet.source_report])}</dd>
+          <dt>Funded by</dt><dd>${agencies.length ? agencies.map(a => esc(a.name) + (a.role_at_bet ? ` <span class="muted small">(${esc(a.role_at_bet)})</span>` : '')).join('<br>') : esc(r.bet.agency)}</dd>
+          <dt>Built</dt><dd>${score('built', b, 'scores the agency')}</dd>
+          <dt>Cost, time</dt><dd>${score('cost', cs, 'scores the agency and project')}</dd>
+          <dt>Science</dt><dd>${score('science', s, "scores the committee's forecast")}</dd>
+        </dl></div>`;
+    }).join('');
+  })();
+  el('q4-after').innerHTML = F.q4.after;
+
+  // ---- ledger table ----
+  function renderLedger() {
+    const rep = el('f-report').value, bu = el('f-built').value, q = el('f-q').value.trim().toLowerCase();
+    const sel = rows.filter(r => (!rep || r.bet.source_report === rep) && (!bu || (r.built && r.built.result === bu)) &&
+      (!q || [r.name, r.bet.project, r.copy.what, r.copy.question_plain, r.bet.science_question, r.bet.science_driver].join(' ').toLowerCase().includes(q)));
+    const sorted = sel.sort((a, b) => a.bet.source_report.localeCompare(b.bet.source_report) || a.bet.rank_or_scenario.localeCompare(b.bet.rank_or_scenario));
+    el('f-count').textContent = `${sel.length} of ${rows.length}`;
+    const srcLink = (o, label) => o && o.source_url ? `<a class="srcline" href="${esc(o.source_url.split(/\s+/)[0])}" target="_blank" rel="noopener">${esc(label)} source</a>` : '';
+    el('ledger').innerHTML = `<tr><th>Bet</th><th>Report, rank</th><th>Funder</th><th>Built?</th><th>Cost and time</th><th>Science question</th></tr>` + sorted.map(r => {
+      const b = r.built, c = r['cost-schedule'], s = r.science;
+      return `<tr>
+        <td class="name"><b>${esc(r.name)}</b><span class="what">${esc(r.copy.what)}</span></td>
+        <td><span class="mono small">${esc(REPORT[r.bet.source_report])}</span><br><span class="small muted">${esc(r.bet.rank_or_scenario)}</span><br><span class="small muted">${esc(r.bet.size_class)}</span></td>
+        <td class="mono small">${esc(r.bet.agency)}</td>
+        <td>${b ? `<span class="chip ${esc(b.result)}"><i></i>${esc(LABEL[b.result] || b.result)}</span><span class="what">${esc(b.rationale)}</span>${srcLink(b, 'Built')}` : ''}</td>
+        <td>${c ? `<span class="chip ${esc(c.result)}"><i></i>${esc(c.result)}</span>${r.ratio != null ? `<span class="what mono">${r.ratio.toFixed(2)}x cost · first data ${esc(r.kv.first_data || '?')}</span>` : ''}<span class="what">${esc(c.rationale)}</span>${srcLink(c, 'Cost')}` : '<span class="small muted">not scored (not built)</span>'}</td>
+        <td>${s ? `<span class="chip ${esc(s.result)}"><i></i>${esc(s.result)}</span><span class="what">${esc(r.copy.question_plain)}</span>${srcLink(s, 'Science')}` : `<span class="what">${esc(r.copy.question_plain)}</span><span class="small muted">not scored in depth</span>`}</td>
+      </tr>`;
+    }).join('');
+  }
+  ['f-report', 'f-built'].forEach(id => el(id).addEventListener('change', renderLedger));
+  el('f-q').addEventListener('input', renderLedger);
+  renderLedger();
+
+  // ---- method, glossary ----
+  el('method-body').innerHTML = F.method;
+  el('glossary-body').innerHTML = F.glossary.map(g => `<div><b>${esc(g.t)}</b><span class="muted">${g.d}</span></div>`).join('');
+})();
+</script>
